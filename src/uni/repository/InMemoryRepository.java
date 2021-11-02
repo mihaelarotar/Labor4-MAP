@@ -1,13 +1,11 @@
 package uni.repository;
 
-import javax.swing.text.html.parser.Entity;
+
 import java.util.List;
 
 public abstract class InMemoryRepository<E> implements ICrudRepository<E>{
     protected List<E> repoList;
 
-    public InMemoryRepository() {
-    }
 
     public InMemoryRepository(List<E> repoList) {
         this.repoList = repoList;
@@ -19,16 +17,16 @@ public abstract class InMemoryRepository<E> implements ICrudRepository<E>{
     }
 
     @Override
-    public E create(E entity) {
+    public E save(E entity) {
         if(this.repoList.contains(entity))
-            return entity;
+            return null;
         this.repoList.add(entity);
-        return null;
+        return entity;
     }
 
     @Override
     public E delete(E entity) {
-        if(this.repoList.contains(entity))
+        if(!this.repoList.contains(entity))
             return null;
         this.repoList.remove(entity);
         return entity;

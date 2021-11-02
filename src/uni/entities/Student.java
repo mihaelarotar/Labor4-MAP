@@ -1,6 +1,7 @@
 package uni.entities;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Student extends Person{
     private long studentID;
@@ -15,6 +16,7 @@ public class Student extends Person{
         this.studentID = studentID;
         this.totalCredits = totalCredits;
         this.enrolledCourses = enrolledCourses;
+        validate();
     }
 
     public long getStudentID() {
@@ -40,4 +42,24 @@ public class Student extends Person{
     public void setEnrolledCourses(List<Course> enrolledCourses) {
         this.enrolledCourses = enrolledCourses;
     }
+
+    private void validate() {
+        if (studentID <= 0) {
+            throw new IllegalArgumentException("Invalid ID");
+        }
+        if (totalCredits < 0) {
+            throw new IllegalArgumentException("Value cannot be negative");
+        } else if (totalCredits > 30) {
+            throw new IllegalArgumentException("Total number of credits must be smaller than 30");
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return studentID == student.studentID;
+    }
+
 }

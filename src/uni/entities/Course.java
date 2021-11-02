@@ -1,6 +1,7 @@
 package uni.entities;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Course {
     private String name;
@@ -15,6 +16,7 @@ public class Course {
         this.maxEnrollment = maxEnrollment;
         this.studentsEnrolled = studentsEnrolled;
         this.credits = credits;
+        validate();
     }
 
     public String getName() {
@@ -55,5 +57,23 @@ public class Course {
 
     public void setCredits(int credits) {
         this.credits = credits;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return Objects.equals(name, course.name);
+    }
+
+
+    private void validate() {
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be null");
+        }
+        if (maxEnrollment < 0 || credits < 0) {
+            throw new IllegalArgumentException("Value cannot be negative");
+        }
     }
 }

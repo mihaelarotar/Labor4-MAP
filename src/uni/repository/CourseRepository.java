@@ -9,10 +9,23 @@ public class CourseRepository extends InMemoryRepository<Course>{
         super(repoList);
     }
 
+    public void deleteByName(String name){
+        for (Course course : repoList)
+            if (course.getName().equals(name)) {
+                repoList.remove(course);
+                return;
+            }
+    }
+
+    @Override
+    public Course save(Course entity) {
+        return super.save(entity);
+    }
+
     @Override
     public Course update(Course entity) {
         for (Course course : repoList)
-            if (course.getName().equals(entity.getName())) {
+            if (course.equals(entity)) {
                 course.setTeacher(entity.getTeacher());
                 course.setCredits(entity.getCredits());
                 course.setMaxEnrollment(entity.getMaxEnrollment());
