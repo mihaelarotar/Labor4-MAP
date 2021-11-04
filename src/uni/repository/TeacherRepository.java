@@ -4,7 +4,7 @@ import uni.entities.Teacher;
 
 import java.util.List;
 
-public class TeacherRepository extends InMemoryRepository<Teacher>{
+public class TeacherRepository extends InMemoryRepository<Teacher> {
     public TeacherRepository(List<Teacher> repoList) {
         super(repoList);
     }

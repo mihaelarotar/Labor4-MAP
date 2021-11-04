@@ -104,4 +104,5 @@ class RegistrationSystemTest {
         assertEquals(registrationSystem.getAllCourses().size(), 2);
         assertEquals(registrationSystem.getAllCourses(), courseRepository.getAll());
     }
+
 }

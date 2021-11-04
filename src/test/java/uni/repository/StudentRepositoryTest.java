@@ -85,4 +85,5 @@ class StudentRepositoryTest {
         assertEquals(studentRepository.getAll().size(), 1);
         assertEquals(studentRepository.getAll().get(0).getFirstName(), "Ana");
     }
+
 }

@@ -9,7 +9,6 @@ import uni.repository.TeacherRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class RegistrationSystem {
     private final StudentRepository studentRepository;
     private final TeacherRepository teacherRepository;

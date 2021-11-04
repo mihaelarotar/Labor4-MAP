@@ -3,7 +3,7 @@ package uni.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Teacher extends Person{
+public class Teacher extends Person {
     private int teacherID;
     private List<Course> courses;
 

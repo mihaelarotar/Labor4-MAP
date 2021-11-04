@@ -22,6 +22,7 @@ public class Main {
         Teacher teacher = new Teacher("John", "Smith", 3);
         Course databases = new Course("DB", teacher,30,4);
         System.out.println(teacher);
+
         courseRepository.save(databases);
         System.out.println(myRegistrationSystem.register(databases, student));
         System.out.println(databases);
