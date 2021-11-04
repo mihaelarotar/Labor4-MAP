@@ -1,21 +1,19 @@
 package uni.entities;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Student extends Person{
     private long studentID;
     private int totalCredits;
     private List<Course> enrolledCourses;
 
-    public Student() {
-    }
 
-    public Student(String firstName, String lastName, long studentID, int totalCredits, List<Course> enrolledCourses) {
+    public Student(String firstName, String lastName, long studentID) {
         super(firstName, lastName);
         this.studentID = studentID;
-        this.totalCredits = totalCredits;
-        this.enrolledCourses = enrolledCourses;
+        this.totalCredits = 0;
+        this.enrolledCourses = new ArrayList<>();
         validate();
     }
 
@@ -43,6 +41,11 @@ public class Student extends Person{
         this.enrolledCourses = enrolledCourses;
     }
 
+    /**
+     * data validator
+     * checks if the integers are negative
+     * @throws IllegalArgumentException if data is not valid
+     */
     private void validate() {
         if (studentID <= 0) {
             throw new IllegalArgumentException("Invalid ID");
@@ -62,4 +65,40 @@ public class Student extends Person{
         return studentID == student.studentID;
     }
 
+    @Override
+    public String toString() {
+        List<String> courses = new ArrayList<>();
+        for (Course course : enrolledCourses) {
+            courses.add(course.getName());
+        }
+        return "Student{" +
+                "studentID=" + studentID +
+                "firstName=" + getFirstName() +
+                "lastName=" + getLastName() +
+                ", totalCredits=" + totalCredits +
+                ", enrolledCourses=" + courses +
+                '}';
+    }
+
+    /**
+     * adds a course to the list of enrolled courses and updates the total number of credits
+     * @param course the course to be added
+     * @throws Exception if the maximum number of credits is exceeded
+     */
+    public void addCourseToEnrolledCourses(Course course) throws Exception {
+        if (this.totalCredits + course.getCredits() >= 30) {
+            throw new Exception("The maximum number of 30 credits was exceeded");
+        }
+        this.enrolledCourses.add(course);
+        this.totalCredits += course.getCredits();
+    }
+
+    /**
+     * removes a course from the list of enrolled courses and updates the total number of credits
+     * @param course the course to be removed
+     */
+    public void removeCourseFromEnrolledCourses(Course course) {
+        this.enrolledCourses.remove(course);
+        this.totalCredits -= course.getCredits();
+    }
 }

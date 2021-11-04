@@ -3,19 +3,41 @@ package uni.repository;
 
 import java.util.List;
 
+/**
+ * In Memory Repository abstract Class
+ * @param <E> template entity
+ */
 public abstract class InMemoryRepository<E> implements ICrudRepository<E>{
     protected List<E> repoList;
-
 
     public InMemoryRepository(List<E> repoList) {
         this.repoList = repoList;
     }
 
+    /**
+     * searches for the index of the entity in the list
+     * {@inheritDoc}
+     */
+    @Override
+    public int findIndex(E entity) {
+        for (E object : repoList) {
+            if (entity == object)
+                return repoList.indexOf(object);
+        }
+        return -1;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<E> getAll() {
         return this.repoList;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public E save(E entity) {
         if(this.repoList.contains(entity))
@@ -24,6 +46,9 @@ public abstract class InMemoryRepository<E> implements ICrudRepository<E>{
         return entity;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public E delete(E entity) {
         if(!this.repoList.contains(entity))

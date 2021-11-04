@@ -1,6 +1,5 @@
 package uni.repository;
 
-import uni.entities.Student;
 import uni.entities.Teacher;
 
 import java.util.List;
@@ -10,6 +9,10 @@ public class TeacherRepository extends InMemoryRepository<Teacher>{
         super(repoList);
     }
 
+    /**
+     * deletes the teacher with the given ID from the list
+     * @param teacherID int, representing the ID of the teacher to be removed
+     */
     public void deleteByID(int teacherID) {
         for (Teacher teacher : repoList)
             if (teacher.getTeacherID() == teacherID) {
@@ -18,6 +21,12 @@ public class TeacherRepository extends InMemoryRepository<Teacher>{
             }
     }
 
+    /**
+     * updates a teacher in list
+     * @param entity entity must not be null
+     * @return null - if the entity is updated,
+     * otherwise returns the entity (if the entity with the given ID does not exist)
+     */
     @Override
     public Teacher update(Teacher entity) {
         for (Teacher teacher : repoList)

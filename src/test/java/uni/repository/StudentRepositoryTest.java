@@ -1,5 +1,6 @@
 package uni.repository;
 
+import jdk.jfr.Description;
 import org.junit.jupiter.api.Test;
 import uni.entities.Student;
 
@@ -13,32 +14,46 @@ class StudentRepositoryTest {
     void save() {
         StudentRepository studentRepository = new StudentRepository(new ArrayList<>());
         assertEquals(studentRepository.getAll().size(),0);
-        studentRepository.save(new Student("Maria", "Ionescu", 123456, 25,null));
+        studentRepository.save(new Student("Maria", "Ionescu", 123456));
         assertEquals(studentRepository.getAll().size(),1);
+
+        Student student = new Student("Vlad", "Popa", 2);
+        assertEquals(studentRepository.save(student), student);
+        assertEquals(studentRepository.getAll().size(),2);
+    }
+
+    @Test
+    @Description("test if a student with the same ID as an existing student can be added (it cannot)")
+    void saveExistingStudent() {
+        StudentRepository studentRepository = new StudentRepository(new ArrayList<>());
+        Student student = new Student("Vlad", "Popa", 2);
+        assertEquals(studentRepository.save(student), student);
+        Student student1 = new Student("Vlad", "Popa", 2);
+        assertNull(studentRepository.save(student1));
+        assertEquals(studentRepository.getAll().size(),1);
+    }
+
+    @Test
+    @Description("checks if an exception is thrown when trying to add an invalid object")
+    void saveAndValidate() {
+        StudentRepository studentRepository = new StudentRepository(new ArrayList<>());
         try {
-            Student student = new Student("Maria", "Ionescu", 123456, 31, null);
+            Student student = new Student("Maria", "Ionescu", -1);
             studentRepository.save(student);
         } catch (IllegalArgumentException exception) {
             System.out.println(exception.getMessage());
         }
-        assertEquals(studentRepository.getAll().size(),1);
-
-        Student student = new Student("Vlad", "Popa", 2, 0,null);
-        assertEquals(studentRepository.save(student), student);
-        assertEquals(studentRepository.getAll().size(),2);
-        Student student1 = new Student("Vlad", "Popa", 2, 12,null);
-        assertNull(studentRepository.save(student1));
-        assertEquals(studentRepository.getAll().size(),2);
+        assertEquals(studentRepository.getAll().size(),0);
     }
 
     @Test
     void delete() {
         StudentRepository studentRepository = new StudentRepository(new ArrayList<>());
         assertEquals(studentRepository.getAll().size(),0);
-        Student student = new Student("Vlad", "Popa", 2, 0,null);
+        Student student = new Student("Vlad", "Popa", 2);
         studentRepository.save(student);
         assertEquals(studentRepository.getAll().size(),1);
-        Student student1 = new Student("Maria", "Ionescu", 123456, 30, null);
+        Student student1 = new Student("Maria", "Ionescu", 123456);
         studentRepository.save(student1);
         assertEquals(studentRepository.getAll().size(),2);
         assertEquals(studentRepository.delete(student1), student1);
@@ -52,7 +67,7 @@ class StudentRepositoryTest {
     void deleteByID() {
         StudentRepository studentRepository = new StudentRepository(new ArrayList<>());
         assertEquals(studentRepository.getAll().size(),0);
-        studentRepository.save(new Student("Maria", "Ionescu", 123456, 25,null));
+        studentRepository.save(new Student("Maria", "Ionescu", 123456));
         assertEquals(studentRepository.getAll().size(),1);
         studentRepository.deleteByID(123456);
         assertEquals(studentRepository.getAll().size(),0);
@@ -62,13 +77,12 @@ class StudentRepositoryTest {
     void update() {
         StudentRepository studentRepository = new StudentRepository(new ArrayList<>());
         assertEquals(studentRepository.getAll().size(),0);
-        Student student = new Student("Vlad", "Popa", 2, 0,null);
+        Student student = new Student("Vlad", "Popa", 2);
         studentRepository.save(student);
         assertEquals(studentRepository.getAll().size(),1);
-        Student student1 = new Student("Ana", "Popa", 2, 10, null);
+        Student student1 = new Student("Ana", "Popa", 2);
         assertNull(studentRepository.update(student1));
         assertEquals(studentRepository.getAll().size(), 1);
         assertEquals(studentRepository.getAll().get(0).getFirstName(), "Ana");
-        assertEquals(studentRepository.getAll().get(0).getTotalCredits(), 10);
     }
 }

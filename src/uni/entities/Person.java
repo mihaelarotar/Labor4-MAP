@@ -3,10 +3,7 @@ package uni.entities;
 public abstract class Person {
     private String firstName;
     private String lastName;
-    //private Object IllegalArgumentException;
 
-    public Person() {
-    }
 
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
@@ -30,9 +27,22 @@ public abstract class Person {
         this.lastName = lastName;
     }
 
+    /**
+     * data validator
+     * checks if the firstName and lastName strings are null
+     * @throws IllegalArgumentException if a string is empty
+     */
     private void validate() {
         if (firstName.isEmpty() || lastName.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be null");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 }

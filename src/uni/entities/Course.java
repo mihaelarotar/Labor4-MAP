@@ -1,20 +1,22 @@
 package uni.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+
 public class Course {
     private String name;
-    private Person teacher;
+    private Teacher teacher;
     private int maxEnrollment;
     private List<Student> studentsEnrolled;
     private int credits;
 
-    public Course(String name, Person teacher, int maxEnrollment, List<Student> studentsEnrolled, int credits) {
+    public Course(String name, Teacher teacher, int maxEnrollment, int credits) {
         this.name = name;
         this.teacher = teacher;
         this.maxEnrollment = maxEnrollment;
-        this.studentsEnrolled = studentsEnrolled;
+        this.studentsEnrolled = new ArrayList<>();
         this.credits = credits;
         validate();
     }
@@ -27,11 +29,11 @@ public class Course {
         this.name = name;
     }
 
-    public Person getTeacher() {
+    public Teacher getTeacher() {
         return teacher;
     }
 
-    public void setTeacher(Person teacher) {
+    public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
 
@@ -67,13 +69,36 @@ public class Course {
         return Objects.equals(name, course.name);
     }
 
-
-    private void validate() {
+    /**
+     * data validator
+     * checks if the name string is empty and the integers are negative
+     * @throws IllegalArgumentException if data is not valid
+     */
+    public void validate() {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be null");
         }
         if (maxEnrollment < 0 || credits < 0) {
             throw new IllegalArgumentException("Value cannot be negative");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "name='" + name + '\'' +
+                ", teacher=" + teacher +
+                ", maxEnrollment=" + maxEnrollment +
+                ", studentsEnrolled=" + studentsEnrolled +
+                ", credits=" + credits +
+                '}';
+    }
+
+    /**
+     * adds a new student to the list of enrolled students
+     * @param student the student to be added
+     */
+    public void addStudentToStudentsEnrolled(Student student) {
+        this.studentsEnrolled.add(student);
     }
 }

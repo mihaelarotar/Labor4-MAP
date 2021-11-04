@@ -1,19 +1,16 @@
 package uni.entities;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Teacher extends Person{
     private int teacherID;
     private List<Course> courses;
 
-    public Teacher() {
-    }
-
-    public Teacher(String firstName, String lastName, List<Course> courses, int teacherID) {
+    public Teacher(String firstName, String lastName, int teacherID) {
         super(firstName, lastName);
         this.teacherID = teacherID;
-        this.courses = courses;
+        this.courses = new ArrayList<>();
         validate();
     }
 
@@ -45,5 +42,31 @@ public class Teacher extends Person{
         if(teacherID <= 0) {
             throw new IllegalArgumentException("Invalid ID");
         }
+    }
+
+    @Override
+    public String toString() {
+        List<String> courseNames = new ArrayList<>();
+        for (Course course : courses) {
+            courseNames.add(course.getName());
+        }
+        return "Teacher{" +
+                "teacherID=" + teacherID +
+                ", firstName=" + getFirstName() +
+                ", lastName=" + getLastName() +
+                ", courses=" + courseNames +
+                '}';
+    }
+
+    /**
+     * adds a new course to the list of courses
+     * @param course the course to be added
+     */
+    public void addCourseToCourses(Course course) {
+        this.courses.add(course);
+    }
+
+    public void deleteCourseFromCourses(Course course) {
+        this.courses.remove(course);
     }
 }
