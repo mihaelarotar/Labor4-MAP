@@ -26,7 +26,7 @@ class StudentRepositoryTest {
     void saveExistingStudent() {
         StudentRepository studentRepository = new StudentRepository();
         Student student = new Student("Vlad", "Popa", 2);
-        assertEquals(studentRepository.save(student), student);
+        studentRepository.save(student);
         Student student1 = new Student("Vlad", "Popa", 2);
         assertNull(studentRepository.save(student1));
         assertEquals(studentRepository.getAll().size(),1);
@@ -52,9 +52,7 @@ class StudentRepositoryTest {
         studentRepository.save(student);
         Student student1 = new Student("Maria", "Ionescu", 123456);
         studentRepository.save(student1);
-        assertEquals(studentRepository.getAll().size(),2);
         assertEquals(studentRepository.delete(student1), student1);
-        assertEquals(studentRepository.getAll().size(),1);
         assertNull(studentRepository.delete(student1));
         assertEquals(studentRepository.delete(student), student);
         assertEquals(studentRepository.getAll().size(),0);
@@ -64,7 +62,6 @@ class StudentRepositoryTest {
     void deleteByID() {
         StudentRepository studentRepository = new StudentRepository();
         studentRepository.save(new Student("Maria", "Ionescu", 123456));
-        assertEquals(studentRepository.getAll().size(),1);
         studentRepository.deleteByID(123456);
         assertEquals(studentRepository.getAll().size(),0);
     }
@@ -74,10 +71,8 @@ class StudentRepositoryTest {
         StudentRepository studentRepository = new StudentRepository();
         Student student = new Student("Vlad", "Popa", 2);
         studentRepository.save(student);
-        assertEquals(studentRepository.getAll().size(),1);
         Student student1 = new Student("Ana", "Popa", 2);
         assertNull(studentRepository.update(student1));
-        assertEquals(studentRepository.getAll().size(), 1);
         assertEquals(studentRepository.getAll().get(0).getFirstName(), "Ana");
     }
 
