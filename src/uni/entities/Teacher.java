@@ -66,6 +66,10 @@ public class Teacher extends Person {
         this.courses.add(course);
     }
 
+    /**
+     * removes a course from the list
+     * @param course the course to be removed
+     */
     public void deleteCourseFromCourses(Course course) {
         this.courses.remove(course);
     }

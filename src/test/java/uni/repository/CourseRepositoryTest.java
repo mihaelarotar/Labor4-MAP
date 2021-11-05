@@ -96,7 +96,6 @@ class CourseRepositoryTest {
     @Test
     void deleteByName() {
         CourseRepository courseRepository = new CourseRepository(new ArrayList<>());
-        assertEquals(courseRepository.getAll().size(),0);
         courseRepository.save(new Course("OOP", new Teacher("Ana", "Pop",1), 50, 5));
         assertEquals(courseRepository.getAll().size(),1);
         courseRepository.deleteByName("OOP");

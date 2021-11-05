@@ -49,10 +49,8 @@ class StudentRepositoryTest {
     @Test
     void delete() {
         StudentRepository studentRepository = new StudentRepository(new ArrayList<>());
-        assertEquals(studentRepository.getAll().size(),0);
         Student student = new Student("Vlad", "Popa", 2);
         studentRepository.save(student);
-        assertEquals(studentRepository.getAll().size(),1);
         Student student1 = new Student("Maria", "Ionescu", 123456);
         studentRepository.save(student1);
         assertEquals(studentRepository.getAll().size(),2);
@@ -66,7 +64,6 @@ class StudentRepositoryTest {
     @Test
     void deleteByID() {
         StudentRepository studentRepository = new StudentRepository(new ArrayList<>());
-        assertEquals(studentRepository.getAll().size(),0);
         studentRepository.save(new Student("Maria", "Ionescu", 123456));
         assertEquals(studentRepository.getAll().size(),1);
         studentRepository.deleteByID(123456);
@@ -76,7 +73,6 @@ class StudentRepositoryTest {
     @Test
     void update() {
         StudentRepository studentRepository = new StudentRepository(new ArrayList<>());
-        assertEquals(studentRepository.getAll().size(),0);
         Student student = new Student("Vlad", "Popa", 2);
         studentRepository.save(student);
         assertEquals(studentRepository.getAll().size(),1);
