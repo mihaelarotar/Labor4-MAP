@@ -2,11 +2,10 @@ package uni.repository;
 
 import uni.entities.Student;
 
-import java.util.List;
 
 public class StudentRepository extends InMemoryRepository<Student> {
-    public StudentRepository(List<Student> repoList) {
-        super(repoList);
+    public StudentRepository() {
+        super();
     }
 
     /**

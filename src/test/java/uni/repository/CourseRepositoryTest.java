@@ -5,14 +5,13 @@ import org.junit.jupiter.api.Test;
 import uni.entities.Course;
 import uni.entities.Teacher;
 
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CourseRepositoryTest {
     @Test
     void findIndex() {
-        CourseRepository courseRepository = new CourseRepository(new ArrayList<>());
+        CourseRepository courseRepository = new CourseRepository();
         Course oop = new Course("OOP", new Teacher("Ana", "Pop", 1), 50,  5);
         courseRepository.save(oop);
         assertEquals(courseRepository.findIndex(oop),0);
@@ -23,7 +22,7 @@ class CourseRepositoryTest {
 
     @Test
     void save() {
-        CourseRepository courseRepository = new CourseRepository(new ArrayList<>());
+        CourseRepository courseRepository = new CourseRepository();
         assertEquals(courseRepository.getAll().size(),0);
         courseRepository.save(new Course("OOP", new Teacher("Ana", "Pop", 1), 50,  5));
         assertEquals(courseRepository.getAll().size(),1);
@@ -37,7 +36,7 @@ class CourseRepositoryTest {
     @Test
     @Description("test if a course with the same name as an existing course can be added (it cannot)")
     void saveExistingCourse() {
-        CourseRepository courseRepository = new CourseRepository(new ArrayList<>());
+        CourseRepository courseRepository = new CourseRepository();
         Course databases = new Course("DB",new Teacher("John", "Smith", 3),30,4);
         assertEquals(courseRepository.save(databases), databases);
         assertNull(courseRepository.save(databases));
@@ -49,7 +48,7 @@ class CourseRepositoryTest {
     @Test
     @Description("checks if an exception is thrown when trying to add an invalid object")
     void saveAndValidate() {
-        CourseRepository courseRepository = new CourseRepository(new ArrayList<>());
+        CourseRepository courseRepository = new CourseRepository();
         try {
             Course course = new Course("",new Teacher("John", "Smith", 3),50,5);
             courseRepository.save(course);
@@ -68,7 +67,7 @@ class CourseRepositoryTest {
 
     @Test
     void delete() {
-        CourseRepository courseRepository = new CourseRepository(new ArrayList<>());
+        CourseRepository courseRepository = new CourseRepository();
         Teacher teacher = new Teacher("John", "Smith", 3);
         Course databases = new Course("DB", teacher,30,4);
         courseRepository.save(databases);
@@ -81,7 +80,7 @@ class CourseRepositoryTest {
 
     @Test
     void update() {
-        CourseRepository courseRepository = new CourseRepository(new ArrayList<>());
+        CourseRepository courseRepository = new CourseRepository();
         assertEquals(courseRepository.getAll().size(),0);
         Course databases = new Course("DB", new Teacher("John", "Smith", 3),30,4);
         courseRepository.save(databases);
@@ -95,7 +94,7 @@ class CourseRepositoryTest {
 
     @Test
     void deleteByName() {
-        CourseRepository courseRepository = new CourseRepository(new ArrayList<>());
+        CourseRepository courseRepository = new CourseRepository();
         courseRepository.save(new Course("OOP", new Teacher("Ana", "Pop",1), 50, 5));
         assertEquals(courseRepository.getAll().size(),1);
         courseRepository.deleteByName("OOP");

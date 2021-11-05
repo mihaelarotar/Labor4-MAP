@@ -4,7 +4,6 @@ import jdk.jfr.Description;
 import org.junit.jupiter.api.Test;
 import uni.entities.Student;
 
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,7 +11,7 @@ class StudentRepositoryTest {
 
     @Test
     void save() {
-        StudentRepository studentRepository = new StudentRepository(new ArrayList<>());
+        StudentRepository studentRepository = new StudentRepository();
         assertEquals(studentRepository.getAll().size(),0);
         studentRepository.save(new Student("Maria", "Ionescu", 123456));
         assertEquals(studentRepository.getAll().size(),1);
@@ -25,7 +24,7 @@ class StudentRepositoryTest {
     @Test
     @Description("test if a student with the same ID as an existing student can be added (it cannot)")
     void saveExistingStudent() {
-        StudentRepository studentRepository = new StudentRepository(new ArrayList<>());
+        StudentRepository studentRepository = new StudentRepository();
         Student student = new Student("Vlad", "Popa", 2);
         assertEquals(studentRepository.save(student), student);
         Student student1 = new Student("Vlad", "Popa", 2);
@@ -36,7 +35,7 @@ class StudentRepositoryTest {
     @Test
     @Description("checks if an exception is thrown when trying to add an invalid object")
     void saveAndValidate() {
-        StudentRepository studentRepository = new StudentRepository(new ArrayList<>());
+        StudentRepository studentRepository = new StudentRepository();
         try {
             Student student = new Student("Maria", "Ionescu", -1);
             studentRepository.save(student);
@@ -48,7 +47,7 @@ class StudentRepositoryTest {
 
     @Test
     void delete() {
-        StudentRepository studentRepository = new StudentRepository(new ArrayList<>());
+        StudentRepository studentRepository = new StudentRepository();
         Student student = new Student("Vlad", "Popa", 2);
         studentRepository.save(student);
         Student student1 = new Student("Maria", "Ionescu", 123456);
@@ -63,7 +62,7 @@ class StudentRepositoryTest {
 
     @Test
     void deleteByID() {
-        StudentRepository studentRepository = new StudentRepository(new ArrayList<>());
+        StudentRepository studentRepository = new StudentRepository();
         studentRepository.save(new Student("Maria", "Ionescu", 123456));
         assertEquals(studentRepository.getAll().size(),1);
         studentRepository.deleteByID(123456);
@@ -72,7 +71,7 @@ class StudentRepositoryTest {
 
     @Test
     void update() {
-        StudentRepository studentRepository = new StudentRepository(new ArrayList<>());
+        StudentRepository studentRepository = new StudentRepository();
         Student student = new Student("Vlad", "Popa", 2);
         studentRepository.save(student);
         assertEquals(studentRepository.getAll().size(),1);

@@ -9,7 +9,6 @@ import uni.repository.CourseRepository;
 import uni.repository.StudentRepository;
 import uni.repository.TeacherRepository;
 
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,9 +19,9 @@ class RegistrationSystemTest {
 
     //@BeforeAll
     static void setup() {
-        courseRepository = new CourseRepository(new ArrayList<>());
-        studentRepository = new StudentRepository(new ArrayList<>());
-        TeacherRepository teacherRepository = new TeacherRepository(new ArrayList<>());
+        courseRepository = new CourseRepository();
+        studentRepository = new StudentRepository();
+        TeacherRepository teacherRepository = new TeacherRepository();
         registrationSystem = new RegistrationSystem(studentRepository, teacherRepository, courseRepository);
         Teacher teacher = new Teacher("Ana", "Pop", 1);
         Teacher teacher1 = new Teacher("John", "Smith", 2);

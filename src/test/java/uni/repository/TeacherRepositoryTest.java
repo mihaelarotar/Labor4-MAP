@@ -4,7 +4,6 @@ import jdk.jfr.Description;
 import org.junit.jupiter.api.Test;
 import uni.entities.Teacher;
 
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,7 +11,7 @@ class TeacherRepositoryTest {
 
     @Test
     void save() {
-        TeacherRepository teacherRepository = new TeacherRepository(new ArrayList<>());
+        TeacherRepository teacherRepository = new TeacherRepository();
         assertEquals(teacherRepository.getAll().size(),0);
         teacherRepository.save(new Teacher("Ana", "Pop", 1));
         assertEquals(teacherRepository.getAll().size(),1);
@@ -27,7 +26,7 @@ class TeacherRepositoryTest {
     @Test
     @Description("checks if an exception is thrown when trying to add an invalid object")
     void saveAndValidate() {
-        TeacherRepository teacherRepository = new TeacherRepository(new ArrayList<>());
+        TeacherRepository teacherRepository = new TeacherRepository();
         try {
             Teacher teacher = new Teacher("", "Smith", 3);
             teacherRepository.save(teacher);
@@ -45,7 +44,7 @@ class TeacherRepositoryTest {
 
     @Test
     void delete() {
-        TeacherRepository teacherRepository = new TeacherRepository(new ArrayList<>());
+        TeacherRepository teacherRepository = new TeacherRepository();
         Teacher teacher = new Teacher("John", "Smith", 3);
         teacherRepository.save(teacher);
         Teacher teacher1 = new Teacher("Ana", "Pop", 1);
@@ -60,7 +59,7 @@ class TeacherRepositoryTest {
 
     @Test
     void update() {
-        TeacherRepository teacherRepository = new TeacherRepository(new ArrayList<>());
+        TeacherRepository teacherRepository = new TeacherRepository();
         Teacher teacher = new Teacher("John", "Smith", 3);
         teacherRepository.save(teacher);
         assertEquals(teacherRepository.getAll().size(),1);
@@ -72,7 +71,7 @@ class TeacherRepositoryTest {
 
     @Test
     void deleteByID() {
-        TeacherRepository teacherRepository = new TeacherRepository(new ArrayList<>());
+        TeacherRepository teacherRepository = new TeacherRepository();
         teacherRepository.save(new Teacher("John", "Smith", 3));
         assertEquals(teacherRepository.getAll().size(),1);
         teacherRepository.deleteByID(3);

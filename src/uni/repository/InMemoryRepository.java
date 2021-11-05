@@ -1,5 +1,6 @@
 package uni.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,8 +10,8 @@ import java.util.List;
 public abstract class InMemoryRepository<E> implements ICrudRepository<E>{
     protected List<E> repoList;
 
-    public InMemoryRepository(List<E> repoList) {
-        this.repoList = repoList;
+    public InMemoryRepository() {
+        this.repoList = new ArrayList<>();
     }
 
     /**

@@ -8,14 +8,13 @@ import uni.repository.CourseRepository;
 import uni.repository.StudentRepository;
 import uni.repository.TeacherRepository;
 
-import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        StudentRepository studentRepository = new StudentRepository(new ArrayList<>());
-        CourseRepository courseRepository = new CourseRepository(new ArrayList<>());
-        TeacherRepository teacherRepository = new TeacherRepository(new ArrayList<>());
+        StudentRepository studentRepository = new StudentRepository();
+        CourseRepository courseRepository = new CourseRepository();
+        TeacherRepository teacherRepository = new TeacherRepository();
         RegistrationSystem myRegistrationSystem = new RegistrationSystem(studentRepository, teacherRepository, courseRepository);
         Student student = new Student("Vlad", "Popa", 2);
         studentRepository.save(student);
