@@ -28,7 +28,7 @@ public abstract class InMemoryRepository<E> implements ICrudRepository<E>{
     }
 
     /**
-     * {@inheritDoc}
+     * @return all entities
      */
     @Override
     public List<E> getAll() {

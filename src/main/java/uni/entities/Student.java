@@ -72,8 +72,8 @@ public class Student extends Person{
         }
         return "Student{" +
                 "studentID=" + studentID +
-                "firstName=" + getFirstName() +
-                "lastName=" + getLastName() +
+                ", firstName=" + getFirstName() +
+                ", lastName=" + getLastName() +
                 ", totalCredits=" + totalCredits +
                 ", enrolledCourses=" + courses +
                 '}';
