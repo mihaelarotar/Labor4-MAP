@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/rotar/IdeaProjects/lab3/src/main/java/uni</OriginalElement>
+  <nodes>
+    <node x="0.0" y="393.0">uni.repository.CourseRepository</node>
+    <node x="306.81666666666666" y="565.0">uni.repository.TeacherFileRepository</node>
+    <node x="410.0" y="415.0">uni.repository.FileRepository</node>
+    <node x="524.8166666666666" y="565.0">uni.repository.StudentFileRepository</node>
+    <node x="1124.4416666666666" y="239.0">uni.entities.Student</node>
+    <node x="0.0" y="1296.0">uni.view.ConsoleMenu</node>
+    <node x="274.0" y="1296.0">uni.Main</node>
+    <node x="571.0" y="1081.0">uni.controller.StudentController</node>
+    <node x="840.0" y="1114.0">uni.controller.TeacherController</node>
+    <node x="1055.0" y="820.0">uni.controller.RegistrationSystem</node>
+    <node x="312.81666666666666" y="0.0">uni.repository.ICrudRepository</node>
+    <node x="58.52499999999998" y="565.0">uni.repository.CourseFileRepository</node>
+    <node x="332.0" y="1081.0">uni.controller.CourseController</node>
+    <node x="589.5" y="820.0">uni.controller.Controller</node>
+    <node x="621.4416666666666" y="415.0">uni.repository.StudentRepository</node>
+    <node x="741.0" y="1296.0">uni.exceptions.ExceededValueException</node>
+    <node x="845.4416666666666" y="261.0">uni.entities.Teacher</node>
+    <node x="468.0" y="1296.0">uni.exceptions.NonExistingDataException</node>
+    <node x="1035.6916666666666" y="0.0">uni.entities.Person</node>
+    <node x="211.0" y="415.0">uni.repository.TeacherRepository</node>
+    <node x="0.0" y="820.0">uni.entities.Course</node>
+    <node x="198.56666666666666" y="196.0">uni.repository.InMemoryRepository</node>
+    <node x="1004.0" y="1296.0">uni.exceptions.InvalidDataException</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="uni.controller.StudentController" target="uni.controller.Controller" relationship="GENERALIZATION">
+      <point x="0.0" y="-61.0" />
+      <point x="0.0" y="105.5" />
+    </edge>
+    <edge source="uni.controller.CourseController" target="uni.controller.Controller" relationship="GENERALIZATION">
+      <point x="0.0" y="-61.0" />
+      <point x="441.5" y="1056.0" />
+      <point x="695.5" y="1056.0" />
+      <point x="0.0" y="105.5" />
+    </edge>
+    <edge source="uni.repository.CourseFileRepository" target="uni.repository.CourseRepository" relationship="GENERALIZATION">
+      <point x="-47.75" y="-105.0" />
+      <point x="106.27499999999998" y="545.0" />
+      <point x="95.5" y="545.0" />
+      <point x="0.0" y="61.0" />
+    </edge>
+    <edge source="uni.repository.CourseFileRepository" target="uni.repository.FileRepository" relationship="REALIZATION">
+      <point x="47.75" y="-105.0" />
+      <point x="201.77499999999998" y="545.0" />
+      <point x="497.0" y="545.0" />
+      <point x="0.0" y="39.0" />
+    </edge>
+    <edge source="uni.repository.StudentFileRepository" target="uni.repository.FileRepository" relationship="REALIZATION">
+      <point x="-49.25" y="-105.0" />
+      <point x="574.0666666666666" y="545.0" />
+      <point x="497.0" y="545.0" />
+      <point x="0.0" y="39.0" />
+    </edge>
+    <edge source="uni.repository.InMemoryRepository" target="uni.repository.ICrudRepository" relationship="REALIZATION">
+      <point x="0.0" y="-72.5" />
+      <point x="307.56666666666666" y="170.0" />
+      <point x="359.31666666666666" y="170.0" />
+      <point x="-46.5" y="72.0" />
+    </edge>
+    <edge source="uni.entities.Teacher" target="uni.entities.Person" relationship="GENERALIZATION">
+      <point x="0.0" y="-138.5" />
+      <point x="974.9416666666666" y="214.0" />
+      <point x="1127.1916666666666" y="214.0" />
+      <point x="0.0" y="94.5" />
+    </edge>
+    <edge source="uni.repository.TeacherFileRepository" target="uni.repository.FileRepository" relationship="REALIZATION">
+      <point x="49.5" y="-105.0" />
+      <point x="455.31666666666666" y="545.0" />
+      <point x="497.0" y="545.0" />
+      <point x="0.0" y="39.0" />
+    </edge>
+    <edge source="uni.repository.TeacherRepository" target="uni.repository.InMemoryRepository" relationship="GENERALIZATION">
+      <point x="0.0" y="-39.0" />
+      <point x="300.5" y="372.0" />
+      <point x="307.56666666666666" y="372.0" />
+      <point x="0.0" y="72.5" />
+    </edge>
+    <edge source="uni.repository.FileRepository" target="uni.repository.ICrudRepository" relationship="INTERFACE_GENERALIZATION">
+      <point x="0.0" y="-39.0" />
+      <point x="497.0" y="362.0" />
+      <point x="511.65" y="362.0" />
+      <point x="511.65" y="170.0" />
+      <point x="452.31666666666666" y="170.0" />
+      <point x="46.5" y="72.0" />
+    </edge>
+    <edge source="uni.repository.StudentFileRepository" target="uni.repository.StudentRepository" relationship="GENERALIZATION">
+      <point x="49.25" y="-105.0" />
+      <point x="672.5666666666666" y="545.0" />
+      <point x="710.9416666666666" y="545.0" />
+      <point x="0.0" y="39.0" />
+    </edge>
+    <edge source="uni.repository.CourseRepository" target="uni.repository.InMemoryRepository" relationship="GENERALIZATION">
+      <point x="0.0" y="-61.0" />
+      <point x="95.5" y="372.0" />
+      <point x="307.56666666666666" y="372.0" />
+      <point x="0.0" y="72.5" />
+    </edge>
+    <edge source="uni.controller.TeacherController" target="uni.controller.Controller" relationship="GENERALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="925.0" y="1056.0" />
+      <point x="695.5" y="1056.0" />
+      <point x="0.0" y="105.5" />
+    </edge>
+    <edge source="uni.repository.TeacherFileRepository" target="uni.repository.TeacherRepository" relationship="GENERALIZATION">
+      <point x="-49.5" y="-105.0" />
+      <point x="356.31666666666666" y="535.0" />
+      <point x="300.5" y="535.0" />
+      <point x="0.0" y="39.0" />
+    </edge>
+    <edge source="uni.repository.StudentRepository" target="uni.repository.InMemoryRepository" relationship="GENERALIZATION">
+      <point x="0.0" y="-39.0" />
+      <point x="710.9416666666666" y="372.0" />
+      <point x="307.56666666666666" y="372.0" />
+      <point x="0.0" y="72.5" />
+    </edge>
+    <edge source="uni.entities.Student" target="uni.entities.Person" relationship="GENERALIZATION">
+      <point x="0.0" y="-160.5" />
+      <point x="1279.4416666666666" y="214.0" />
+      <point x="1127.1916666666666" y="214.0" />
+      <point x="0.0" y="94.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.41718213058419246" showDependencies="false" x="717.5" y="753.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

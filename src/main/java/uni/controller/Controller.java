@@ -38,6 +38,11 @@ public abstract class Controller<E> {
         repository.update(entity);
     }
 
+    /**
+     * searches for the index of the entity in the list
+     * @param entity -the entity to be searched
+     * @return the index of the given entity or -1 if there is no such entity
+     */
     public int findIndex(E entity) {
         return repository.findIndex(entity);
     }
