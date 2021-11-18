@@ -1,6 +1,7 @@
 package uni;
 
 import uni.controller.CourseController;
+import uni.controller.RegistrationSystem;
 import uni.controller.StudentController;
 import uni.controller.TeacherController;
 import uni.entities.Course;
@@ -8,7 +9,7 @@ import uni.entities.Student;
 import uni.entities.Teacher;
 
 import uni.repository.*;
-
+import uni.view.ConsoleMenu;
 
 
 public class Main {
@@ -35,6 +36,10 @@ public class Main {
         for (Course course : courseController.getAll()) {
             System.out.println(course);
         }
+
+        RegistrationSystem registrationSystem = new RegistrationSystem(studentController, courseController, teacherController);
+        ConsoleMenu consoleMenu = new ConsoleMenu(registrationSystem);
+        consoleMenu.startConsole();
 
 
 //        StudentRepository studentRepository = new StudentRepository();

@@ -21,6 +21,17 @@ public class RegistrationSystem {
         this.teacherController = teacherController;
     }
 
+    public StudentController getStudentController() {
+        return studentController;
+    }
+
+    public CourseController getCourseController() {
+        return courseController;
+    }
+
+    public TeacherController getTeacherController() {
+        return teacherController;
+    }
 
     /**
      * registers a student to a given course
