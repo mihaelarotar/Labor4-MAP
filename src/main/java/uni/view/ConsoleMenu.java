@@ -152,7 +152,6 @@ public class ConsoleMenu {
         String firstName = in.nextLine();
         String lastName = in.nextLine();
         int teacherID = in.nextInt();
-        in.close();
         return new Teacher(firstName, lastName, teacherID);
     }
 
@@ -179,7 +178,6 @@ public class ConsoleMenu {
         String firstName = in.nextLine();
         String lastName = in.nextLine();
         int studentID = in.nextInt();
-        in.close();
         return new Student(firstName, lastName, studentID);
 
     }
