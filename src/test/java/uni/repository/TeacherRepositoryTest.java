@@ -1,6 +1,5 @@
 package uni.repository;
 
-import jdk.jfr.Description;
 import org.junit.jupiter.api.Test;
 import uni.entities.Teacher;
 
@@ -21,24 +20,6 @@ class TeacherRepositoryTest {
         assertEquals(teacherRepository.getAll().size(),2);
     }
 
-    @Test
-    @Description("checks if an exception is thrown when trying to add an invalid object")
-    void saveAndValidate() {
-        TeacherRepository teacherRepository = new TeacherRepository();
-        try {
-            Teacher teacher = new Teacher("", "Smith", 3);
-            teacherRepository.save(teacher);
-        } catch (IllegalArgumentException exception) {
-            System.out.println(exception.getMessage());
-        }
-        try {
-            Teacher teacher = new Teacher("John", "Smith", -3);
-            teacherRepository.save(teacher);
-        } catch (IllegalArgumentException exception) {
-            System.out.println(exception.getMessage());
-        }
-        assertEquals(teacherRepository.getAll().size(),0);
-    }
 
     @Test
     void delete() {

@@ -1,13 +1,20 @@
 package uni.entities;
 
+import uni.exceptions.InvalidDataException;
+
 public abstract class Person {
     private String firstName;
     private String lastName;
 
-    public Person(String firstName, String lastName) {
+    public Person() {
+    }
+
+    public Person(String firstName, String lastName) throws InvalidDataException {
+        if (firstName.isEmpty() || lastName.isEmpty()) {
+            throw new InvalidDataException("Name cannot be null");
+        }
         this.firstName = firstName;
         this.lastName = lastName;
-        validate();
     }
 
     public String getFirstName() {
@@ -26,16 +33,6 @@ public abstract class Person {
         this.lastName = lastName;
     }
 
-    /**
-     * data validator
-     * checks if the firstName and lastName strings are null
-     * @throws IllegalArgumentException if a string is empty
-     */
-    private void validate() {
-        if (firstName.isEmpty() || lastName.isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be null");
-        }
-    }
 
     @Override
     public String toString() {

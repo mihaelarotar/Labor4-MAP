@@ -1,5 +1,8 @@
 package uni.entities;
 
+import uni.exceptions.ExceededValueException;
+import uni.exceptions.InvalidDataException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,13 +11,20 @@ public class Student extends Person{
     private int totalCredits;
     private List<Course> enrolledCourses;
 
-    public Student(String firstName, String lastName, long studentID) {
+    public Student()  {
+
+    }
+
+    public Student(String firstName, String lastName, long studentID) throws InvalidDataException {
         super(firstName, lastName);
+        if (studentID <= 0) {
+            throw new InvalidDataException("Invalid ID");
+        }
         this.studentID = studentID;
         this.totalCredits = 0;
         this.enrolledCourses = new ArrayList<>();
-        validate();
     }
+
 
     public long getStudentID() {
         return studentID;
@@ -28,7 +38,10 @@ public class Student extends Person{
         return totalCredits;
     }
 
-    public void setTotalCredits(int totalCredits) {
+    public void setTotalCredits(int totalCredits) throws ExceededValueException {
+        if (totalCredits > 30) {
+            throw new ExceededValueException("Number of total credits cannot be larger than 30");
+        }
         this.totalCredits = totalCredits;
     }
 
@@ -40,21 +53,6 @@ public class Student extends Person{
         this.enrolledCourses = enrolledCourses;
     }
 
-    /**
-     * data validator
-     * checks if the integers are negative
-     * @throws IllegalArgumentException if data is not valid
-     */
-    private void validate() {
-        if (studentID <= 0) {
-            throw new IllegalArgumentException("Invalid ID");
-        }
-        if (totalCredits < 0) {
-            throw new IllegalArgumentException("Value cannot be negative");
-        } else if (totalCredits > 30) {
-            throw new IllegalArgumentException("Total number of credits must be smaller than 30");
-        }
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -82,11 +80,11 @@ public class Student extends Person{
     /**
      * adds a course to the list of enrolled courses and updates the total number of credits
      * @param course the course to be added
-     * @throws Exception if the maximum number of credits is exceeded
+     * @throws ExceededValueException if the maximum number of credits is exceeded
      */
-    public void addCourseToEnrolledCourses(Course course) throws Exception {
+    public void addCourseToEnrolledCourses(Course course) throws ExceededValueException {
         if (this.totalCredits + course.getCredits() >= 30) {
-            throw new Exception("The maximum number of 30 credits was exceeded");
+            throw new ExceededValueException("The maximum number of 30 credits was exceeded");
         }
         this.enrolledCourses.add(course);
         this.totalCredits += course.getCredits();

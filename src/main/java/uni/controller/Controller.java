@@ -14,22 +14,42 @@ public abstract class Controller<E> {
         this.repository = repository;
     }
 
+    /**
+     * adds given entity
+     * @param entity entity must be not null
+     */
     public void add(E entity) {
         repository.save(entity);
     }
 
+    /**
+     * removes the entity with the specified id
+     * @param entity entity must not be null
+     */
     public void delete(E entity) {
         repository.delete(entity);
     }
 
+    /**
+     * updates given entity
+     * @param entity entity must not be null
+     */
     public void update(E entity) {
         repository.update(entity);
     }
 
+    /**
+     * @return all entities
+     */
     public List<E> getAll() {
         return repository.getAll();
     }
 
+    /**
+     * general filter function for entities with certain property
+     * @param function to apply to each entity to determine if it should be included
+     * @return a new list containing only the entities with the given property
+     */
     public List<E> filter(Predicate<E> function) {
         return repository.getAll()
                 .stream()
@@ -37,6 +57,10 @@ public abstract class Controller<E> {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * general sort function
+     * @param comparator used to compare list elements
+     */
     public void sort(Comparator<E> comparator) {
         repository.getAll().sort(comparator);
     }

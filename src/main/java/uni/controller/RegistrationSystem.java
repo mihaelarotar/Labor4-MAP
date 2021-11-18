@@ -2,6 +2,8 @@ package uni.controller;
 
 import uni.entities.Course;
 import uni.entities.Student;
+import uni.exceptions.ExceededValueException;
+import uni.exceptions.NonExistingDataException;
 import uni.repository.CourseRepository;
 import uni.repository.StudentRepository;
 import uni.repository.TeacherRepository;
@@ -27,16 +29,16 @@ public class RegistrationSystem {
      * @return true if the registration was completed successfully
      * or false if the student is already registered to this course
      * or if there are no more available places for this course
-     * @throws Exception if the given course or student are not in the list
+     * @throws NonExistingDataException if the given course or student are not in the list
      */
-    public boolean register(Course course, Student student) throws Exception{
+    public boolean register(Course course, Student student) throws NonExistingDataException{
         int courseIndex = courseRepository.findIndex(course);
         int studentIndex = studentRepository.findIndex(student);
         if (courseIndex == -1) {
-            throw new Exception("There is no such course in the list");
+            throw new NonExistingDataException("There is no such course in the list");
         }
         if (studentIndex == -1) {
-            throw new Exception("There is no such student in the list");
+            throw new NonExistingDataException("There is no such student in the list");
         }
         Course foundCourse = courseRepository.getAll().get(courseIndex);
         Student foundStudent = studentRepository.getAll().get(studentIndex);
@@ -49,8 +51,14 @@ public class RegistrationSystem {
             return false;
         }
 
-        foundCourse.addStudentToStudentsEnrolled(student);
-        foundStudent.addCourseToEnrolledCourses(course);
+
+        try {
+            foundStudent.addCourseToEnrolledCourses(course);
+            foundCourse.addStudentToStudentsEnrolled(student);
+        } catch (ExceededValueException exception) {
+            System.out.println(exception.getMessage());
+            return false;
+        }
         return true;
     }
 

@@ -4,6 +4,7 @@ import jdk.jfr.Description;
 import org.junit.jupiter.api.Test;
 import uni.entities.Course;
 import uni.entities.Teacher;
+import uni.exceptions.InvalidDataException;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -54,22 +55,14 @@ class CourseRepositoryTest {
 
     @Test
     @Description("checks if an exception is thrown when trying to add an invalid object")
-    void saveAndValidate() {
-        CourseRepository courseRepository = new CourseRepository();
-        try {
-            Course course = new Course("",new Teacher("John", "Smith", 3),50,5);
-            courseRepository.save(course);
-        } catch (IllegalArgumentException exception){
-            System.out.println(exception.getMessage());
-        }
-        assertEquals(courseRepository.getAll().size(),0);
-        try {
-            Course course = new Course("DB",new Teacher("John", "Smith", 3),50,-5);
-            courseRepository.save(course);
-        } catch (IllegalArgumentException exception) {
-            System.out.println(exception.getMessage());
-        }
-        assertEquals(courseRepository.getAll().size(),0);
+    void validateName() {
+        assertThrows(InvalidDataException.class, () -> new Course("", new Teacher("John", "Smith", 3), 80, 6));
+    }
+
+    @Test
+    @Description("checks if an exception is thrown when trying to add an invalid object")
+    void validateValues() {
+        assertThrows(InvalidDataException.class, () -> new Course("DB", new Teacher("John", "Smith", 3), -80, -6));
     }
 
     @Test

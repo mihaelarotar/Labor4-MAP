@@ -1,11 +1,13 @@
 package uni.controller;
 
 import jdk.jfr.Description;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uni.entities.Course;
 import uni.entities.Student;
 import uni.entities.Teacher;
+import uni.exceptions.ExceededValueException;
+import uni.exceptions.NonExistingDataException;
 import uni.repository.CourseRepository;
 import uni.repository.StudentRepository;
 import uni.repository.TeacherRepository;
@@ -14,12 +16,12 @@ import uni.repository.TeacherRepository;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RegistrationSystemTest {
-    private static CourseRepository courseRepository;
-    private static StudentRepository studentRepository;
-    private static RegistrationSystem registrationSystem;
+    private CourseRepository courseRepository;
+    private StudentRepository studentRepository;
+    private RegistrationSystem registrationSystem;
 
-    //@BeforeAll // needs review, tests fail when running the entire file
-    static void setup() {
+    @BeforeEach
+    void setup() {
         courseRepository = new CourseRepository();
         studentRepository = new StudentRepository();
         TeacherRepository teacherRepository = new TeacherRepository();
@@ -42,7 +44,6 @@ class RegistrationSystemTest {
 
     @Test
     void register() throws Exception {
-        setup();
         Course databases = courseRepository.getAll().get(0);
         Student student = studentRepository.getAll().get(0);
 
@@ -52,7 +53,6 @@ class RegistrationSystemTest {
     @Test
     @Description("checks if the function returns false when trying to register a student who is already registered")
     void registerAlreadyRegisteredStudent() throws Exception {
-        setup();
         Course databases = courseRepository.getAll().get(0);
         Student student = studentRepository.getAll().get(0);
 
@@ -63,7 +63,6 @@ class RegistrationSystemTest {
     @Test
     @Description("checks if the function returns false when trying to register a student to a course with no more free places")
     void registerToACourseWithNoFreePlaces() throws Exception {
-        setup();
         Course databases = courseRepository.getAll().get(0);
         Student student = studentRepository.getAll().get(0);
         Student student1 = studentRepository.getAll().get(1);
@@ -77,20 +76,23 @@ class RegistrationSystemTest {
     @Test
     @Description("check if an exception is thrown if the given course or student are not in the list")
     void registerNonExistingData() {
-        setup();
         Teacher teacher = new Teacher("Ana", "Pop", 1);
         Student student = new Student("Vlad", "Pop", 1);
         Course databases = new Course("DB", teacher,2,4);
-        try {
-            registrationSystem.register(databases, student);
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
+        assertThrows(NonExistingDataException.class, () -> registrationSystem.register(databases, student));
+    }
+
+    @Test
+    @Description("checks if an exception is thrown when the total number of credits for a students exceeds 30")
+    void registerExceededValue() throws NonExistingDataException, ExceededValueException {
+        Course databases = courseRepository.getAll().get(0);
+        Student student = studentRepository.getAll().get(0);
+        student.setTotalCredits(27);
+        assertFalse(registrationSystem.register(databases, student));
     }
 
     @Test
     void retrieveCoursesWithFreePlaces() throws Exception {
-        setup();
         Course databases = courseRepository.getAll().get(0);
         Course oop = courseRepository.getAll().get(1);
         Student student = studentRepository.getAll().get(0);
@@ -104,7 +106,6 @@ class RegistrationSystemTest {
 
     @Test
     void retrieveStudentsEnrolledForACourse() throws Exception {
-        setup();
         Course databases = courseRepository.getAll().get(0);
         Course oop = courseRepository.getAll().get(1);
         Student student = studentRepository.getAll().get(0);
@@ -120,7 +121,6 @@ class RegistrationSystemTest {
 
     @Test
     void getAllCourses() {
-        setup();
         assertEquals(registrationSystem.getAllCourses().size(), 2);
         assertEquals(registrationSystem.getAllCourses(), courseRepository.getAll());
     }

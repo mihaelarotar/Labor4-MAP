@@ -1,5 +1,7 @@
 package uni.entities;
 
+import uni.exceptions.InvalidDataException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,11 +9,18 @@ public class Teacher extends Person {
     private int teacherID;
     private List<Course> courses;
 
+    public Teacher() {
+    }
+
     public Teacher(String firstName, String lastName, int teacherID) {
         super(firstName, lastName);
-        this.teacherID = teacherID;
-        this.courses = new ArrayList<>();
-        validate();
+        try {
+            this.teacherID = teacherID;
+            this.courses = new ArrayList<>();
+            validate();
+        } catch (InvalidDataException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getTeacherID() {
@@ -38,9 +47,14 @@ public class Teacher extends Person {
         return teacherID == teacher.teacherID;
     }
 
-    private void validate() {
+    /**
+     * data validator
+     * checks if the integers are negative
+     * @throws InvalidDataException if data is not valid
+     */
+    private void validate() throws InvalidDataException {
         if(teacherID <= 0) {
-            throw new IllegalArgumentException("Invalid ID");
+            throw new InvalidDataException("Invalid ID");
         }
     }
 

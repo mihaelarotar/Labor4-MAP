@@ -2,6 +2,7 @@ package uni.repository;
 
 import jdk.jfr.Description;
 import org.junit.jupiter.api.Test;
+import uni.exceptions.InvalidDataException;
 import uni.entities.Student;
 
 
@@ -33,16 +34,15 @@ class StudentRepositoryTest {
     }
 
     @Test
-    @Description("checks if an exception is thrown when trying to add an invalid object")
-    void saveAndValidate() {
-        StudentRepository studentRepository = new StudentRepository();
-        try {
-            Student student = new Student("Maria", "Ionescu", -1);
-            studentRepository.save(student);
-        } catch (IllegalArgumentException exception) {
-            System.out.println(exception.getMessage());
-        }
-        assertEquals(studentRepository.getAll().size(),0);
+    @Description("checks if an exception is thrown when trying to create an invalid object")
+    void validateID() {
+        assertThrows(InvalidDataException.class, () -> new Student("Maria", "Ionescu", -1));
+    }
+
+    @Test
+    @Description("checks if an exception is thrown when trying to create an invalid object")
+    void validateName() {
+        assertThrows(InvalidDataException.class, () -> new Student("Maria", "", 1));
     }
 
     @Test

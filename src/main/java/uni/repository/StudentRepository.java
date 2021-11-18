@@ -1,6 +1,7 @@
 package uni.repository;
 
 import uni.entities.Student;
+import uni.exceptions.ExceededValueException;
 
 
 public class StudentRepository extends InMemoryRepository<Student> {
@@ -32,7 +33,12 @@ public class StudentRepository extends InMemoryRepository<Student> {
             if(student.getStudentID() == entity.getStudentID()) {
                 student.setLastName(entity.getLastName());
                 student.setFirstName(entity.getFirstName());
-                student.setTotalCredits(entity.getTotalCredits());
+                try {
+                    student.setTotalCredits(entity.getTotalCredits());
+                } catch (ExceededValueException exception) {
+                    System.out.println(exception.getMessage());
+                    return entity;
+                }
                 student.setEnrolledCourses(entity.getEnrolledCourses());
                 return null;
             }
