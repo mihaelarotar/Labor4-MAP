@@ -25,7 +25,10 @@ class RegistrationSystemTest {
         courseRepository = new CourseRepository();
         studentRepository = new StudentRepository();
         TeacherRepository teacherRepository = new TeacherRepository();
-        registrationSystem = new RegistrationSystem(studentRepository, teacherRepository, courseRepository);
+        StudentController studentController = new StudentController(studentRepository);
+        TeacherController teacherController = new TeacherController(teacherRepository);
+        CourseController courseController = new CourseController(courseRepository);
+        registrationSystem = new RegistrationSystem(studentController, courseController, teacherController);
         Teacher teacher = new Teacher("Ana", "Pop", 1);
         Teacher teacher1 = new Teacher("John", "Smith", 2);
         teacherRepository.save(teacher);

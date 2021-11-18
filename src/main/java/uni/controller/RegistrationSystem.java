@@ -4,23 +4,23 @@ import uni.entities.Course;
 import uni.entities.Student;
 import uni.exceptions.ExceededValueException;
 import uni.exceptions.NonExistingDataException;
-import uni.repository.CourseRepository;
-import uni.repository.StudentRepository;
-import uni.repository.TeacherRepository;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RegistrationSystem {
-    private final StudentRepository studentRepository;
-    private final TeacherRepository teacherRepository;
-    private final CourseRepository courseRepository;
 
-    public RegistrationSystem(StudentRepository studentRepository, TeacherRepository teacherRepository, CourseRepository courseRepository) {
-        this.studentRepository = studentRepository;
-        this.teacherRepository = teacherRepository;
-        this.courseRepository = courseRepository;
+    private final StudentController studentController;
+    private final CourseController courseController;
+    private final TeacherController teacherController;
+
+    public RegistrationSystem(StudentController studentController, CourseController courseController, TeacherController teacherController) {
+        this.studentController = studentController;
+        this.courseController = courseController;
+        this.teacherController = teacherController;
     }
+
 
     /**
      * registers a student to a given course
@@ -32,16 +32,16 @@ public class RegistrationSystem {
      * @throws NonExistingDataException if the given course or student are not in the list
      */
     public boolean register(Course course, Student student) throws NonExistingDataException{
-        int courseIndex = courseRepository.findIndex(course);
-        int studentIndex = studentRepository.findIndex(student);
+        int courseIndex = courseController.findIndex(course);
+        int studentIndex = studentController.findIndex(student);
         if (courseIndex == -1) {
             throw new NonExistingDataException("There is no such course in the list");
         }
         if (studentIndex == -1) {
             throw new NonExistingDataException("There is no such student in the list");
         }
-        Course foundCourse = courseRepository.getAll().get(courseIndex);
-        Student foundStudent = studentRepository.getAll().get(studentIndex);
+        Course foundCourse = courseController.getAll().get(courseIndex);
+        Student foundStudent = studentController.getAll().get(studentIndex);
         if (foundCourse.getStudentsEnrolled().size() >= foundCourse.getMaxEnrollment()) {
             System.out.println("There are no more available places for this course");
             return false;
@@ -68,7 +68,7 @@ public class RegistrationSystem {
      */
     public List<Course> retrieveCoursesWithFreePlaces() {
         List<Course> coursesWithFreePlaces = new ArrayList<>();
-        for(Course course : courseRepository.getAll()) {
+        for(Course course : courseController.getAll()) {
             if (course.getMaxEnrollment() > course.getStudentsEnrolled().size()) {
                 coursesWithFreePlaces.add(course);
             }
@@ -83,7 +83,7 @@ public class RegistrationSystem {
      */
     public List<Student> retrieveStudentsEnrolledForACourse(Course course) {
         List<Student> enrolledStudents = new ArrayList<>();
-        for (Student student : studentRepository.getAll()) {
+        for (Student student : studentController.getAll()) {
             if (student.getEnrolledCourses().contains(course))
                 enrolledStudents.add(student);
         }
@@ -95,6 +95,6 @@ public class RegistrationSystem {
      * @return the list with all courses
      */
     public List<Course> getAllCourses() {
-        return courseRepository.getAll();
+        return courseController.getAll();
     }
 }

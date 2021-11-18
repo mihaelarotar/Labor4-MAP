@@ -38,6 +38,10 @@ public abstract class Controller<E> {
         repository.update(entity);
     }
 
+    public int findIndex(E entity) {
+        return repository.findIndex(entity);
+    }
+
     /**
      * @return all entities
      */
