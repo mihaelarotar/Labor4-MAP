@@ -79,6 +79,10 @@ public class Course {
         return Objects.equals(name, course.name);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, teacher, maxEnrollment, studentsEnrolled, credits);
+    }
 
     @Override
     public String toString() {

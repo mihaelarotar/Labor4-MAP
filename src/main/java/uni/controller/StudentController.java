@@ -27,7 +27,7 @@ public class StudentController extends Controller<Student> {
      * @return the students with the number of total credits equal to the parameter
      */
     public List<Student> filterByTotalCredits(int totalCredits) {
-        return filter( (student) -> student.getTotalCredits() == totalCredits);
+        return filter( student -> student.getTotalCredits() == totalCredits);
     }
 
     /**

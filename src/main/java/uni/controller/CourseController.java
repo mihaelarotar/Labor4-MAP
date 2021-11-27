@@ -29,7 +29,7 @@ public class CourseController extends Controller<Course> {
      * @return the courses with the number of credits equal to the parameter
      */
     public List<Course> filterByCredits(int credits) {
-        return filter( (course) -> course.getCredits() == credits);
+        return filter( course -> course.getCredits() == credits);
     }
 
     /**

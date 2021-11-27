@@ -13,36 +13,20 @@ import java.util.List;
 
 public class TeacherFileRepository extends TeacherRepository implements FileRepository<Teacher> {
 
+    private static final String PATHNAME = "teachers.json";
+
     public TeacherFileRepository() {
         super();
         readFromFile();
     }
 
-    /**
-     * @return all entities
-     */
-    @Override
-    public List<Teacher> getAll() {
-        return super.getAll();
-    }
-
-    /**
-     * searches for the index of the entity in the list
-     * {@inheritDoc}
-     *
-     * @param entity
-     */
-    @Override
-    public int findIndex(Teacher entity) {
-        return super.findIndex(entity);
-    }
 
     /**
      * reads data from file
      */
     @Override
     public void readFromFile() {
-        File file = new File("teachers.json");
+        File file = new File(PATHNAME);
 
         if(!file.exists()) {
             Teacher teacher = new Teacher("Ana", "Pop", 1);
@@ -58,7 +42,7 @@ public class TeacherFileRepository extends TeacherRepository implements FileRepo
             ObjectMapper mapper = new ObjectMapper();
 
             try {
-                List<Teacher> teachers = new ArrayList<>(Arrays.asList(mapper.readValue(new File("teachers.json"), Teacher[].class)));
+                List<Teacher> teachers = new ArrayList<>(Arrays.asList(mapper.readValue(new File(PATHNAME), Teacher[].class)));
                 repoList.addAll(teachers);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -77,7 +61,7 @@ public class TeacherFileRepository extends TeacherRepository implements FileRepo
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
 
         try {
-            writer.writeValue(new File("teachers.json"), getAll());
+            writer.writeValue(new File(PATHNAME), getAll());
         } catch (IOException e) {
             e.printStackTrace();
         }

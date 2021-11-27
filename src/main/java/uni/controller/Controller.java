@@ -5,12 +5,11 @@ import uni.repository.ICrudRepository;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public abstract class Controller<E> {
     protected final ICrudRepository<E> repository;
 
-    public Controller(ICrudRepository<E> repository) {
+    protected Controller(ICrudRepository<E> repository) {
         this.repository = repository;
     }
 
@@ -63,7 +62,7 @@ public abstract class Controller<E> {
         return repository.getAll()
                 .stream()
                 .filter(function)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     /**

@@ -12,25 +12,21 @@ import java.util.Arrays;
 import java.util.List;
 
 public class StudentFileRepository extends StudentRepository implements FileRepository<Student> {
+
+    private static final String PATHNAME = "students.json";
+
     public StudentFileRepository() {
         super();
         readFromFile();
     }
 
-    /**
-     * @return all entities
-     */
-    @Override
-    public List<Student> getAll() {
-        return super.getAll();
-    }
 
     /**
      * reads data from file
      */
     @Override
     public void readFromFile() {
-        File file = new File("students.json");
+        File file = new File(PATHNAME);
 
         if (!file.exists()) {
             Student student = new Student("Maria", "Pop", 100);
@@ -51,7 +47,7 @@ public class StudentFileRepository extends StudentRepository implements FileRepo
             ObjectMapper mapper = new ObjectMapper();
 
             try {
-                List<Student> students = new ArrayList<>(Arrays.asList(mapper.readValue(new File("students.json"), Student[].class)));
+                List<Student> students = new ArrayList<>(Arrays.asList(mapper.readValue(new File(PATHNAME), Student[].class)));
                 repoList.addAll(students);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -68,22 +64,12 @@ public class StudentFileRepository extends StudentRepository implements FileRepo
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
 
         try {
-            writer.writeValue(new File("students.json"), getAll());
+            writer.writeValue(new File(PATHNAME), getAll());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * searches for the index of the entity in the list
-     * {@inheritDoc}
-     *
-     * @param entity
-     */
-    @Override
-    public int findIndex(Student entity) {
-        return super.findIndex(entity);
-    }
 
     /**
      * {@inheritDoc}

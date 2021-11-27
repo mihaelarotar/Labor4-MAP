@@ -6,10 +6,10 @@ public abstract class Person {
     private String firstName;
     private String lastName;
 
-    public Person() {
+    protected Person() {
     }
 
-    public Person(String firstName, String lastName) throws InvalidDataException {
+    protected Person(String firstName, String lastName) throws InvalidDataException {
         if (firstName.isEmpty() || lastName.isEmpty()) {
             throw new InvalidDataException("Name cannot be null");
         }

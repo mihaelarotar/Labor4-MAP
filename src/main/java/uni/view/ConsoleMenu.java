@@ -71,14 +71,22 @@ public class ConsoleMenu {
                     control.getCourseController().add(course);
                     break;
                 case 4:
-                    //Student student1 = createStudent();
-                    control.getStudentController().delete(createStudent());
+                    myInput.nextLine();
+                    System.out.println("Give student ID: ");
+                    long id = myInput.nextInt();
+                    control.getStudentController().deleteByID(id);
                     break;
                 case 5:
-                    control.getTeacherController().delete(createTeacher());
+                    myInput.nextLine();
+                    System.out.println("Give teacher ID: ");
+                    int idTeacher = myInput.nextInt();
+                    control.getTeacherController().deleteByID(idTeacher);
                     break;
                 case 6:
-                    control.getCourseController().delete(createCourse());
+                    myInput.nextLine();
+                    System.out.println("Give name: ");
+                    String name = myInput.nextLine();
+                    control.getCourseController().deleteByName(name);
                     break;
                 case 7:
                     control.getStudentController().update(createStudent());
@@ -115,11 +123,13 @@ public class ConsoleMenu {
                     break;
                 case 16:
                     myInput.nextLine();
+                    System.out.println("Give number of total credits: ");
                     int totalCredits = myInput.nextInt();
                     printStudents(control.getStudentController().filterByTotalCredits(totalCredits));
                     break;
                 case 17:
                     myInput.nextLine();
+                    System.out.println("Give number of credits: ");
                     int credits = myInput.nextInt();
                     printCourses(control.getCourseController().filterByCredits(credits));
                     break;
@@ -149,8 +159,11 @@ public class ConsoleMenu {
      */
     public Teacher createTeacher() {
         Scanner in = new Scanner(System.in);
+        System.out.println("Teacher first name: ");
         String firstName = in.nextLine();
+        System.out.println("Teacher last name");
         String lastName = in.nextLine();
+        System.out.println("Teacher ID: ");
         int teacherID = in.nextInt();
         return new Teacher(firstName, lastName, teacherID);
     }
@@ -162,9 +175,12 @@ public class ConsoleMenu {
      */
     public Course createCourse() {
         Scanner in = new Scanner(System.in);
+        System.out.println("Give course title: ");
         String name = in.nextLine();
         Teacher teacher = createTeacher();
+        System.out.println("Give max number of enrolled students: ");
         int maxEnrollment = in.nextInt();
+        System.out.println("Give number of credits: ");
         int credits = in.nextInt();
         return new Course(name, teacher, maxEnrollment, credits);
     }
@@ -175,8 +191,11 @@ public class ConsoleMenu {
      */
     public Student createStudent() {
         Scanner in = new Scanner(System.in);
+        System.out.println("Give first name: ");
         String firstName = in.nextLine();
+        System.out.println("Give last name: ");
         String lastName = in.nextLine();
+        System.out.println("Give ID: ");
         int studentID = in.nextInt();
         return new Student(firstName, lastName, studentID);
 

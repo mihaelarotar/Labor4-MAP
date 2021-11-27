@@ -56,13 +56,15 @@ class CourseRepositoryTest {
     @Test
     @Description("checks if an exception is thrown when trying to add an invalid object")
     void validateName() {
-        assertThrows(InvalidDataException.class, () -> new Course("", new Teacher("John", "Smith", 3), 80, 6));
+        Teacher teacher = new Teacher("John", "Smith", 3);
+        assertThrows(InvalidDataException.class, () -> new Course("", teacher, 80, 6));
     }
 
     @Test
     @Description("checks if an exception is thrown when trying to add an invalid object")
     void validateValues() {
-        assertThrows(InvalidDataException.class, () -> new Course("DB", new Teacher("John", "Smith", 3), -80, -6));
+        Teacher teacher = new Teacher("John", "Smith", 3);
+        assertThrows(InvalidDataException.class, () -> new Course("DB", teacher, -80, -6));
     }
 
     @Test

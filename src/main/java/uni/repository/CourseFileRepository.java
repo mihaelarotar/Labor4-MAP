@@ -14,29 +14,14 @@ import java.util.List;
 
 public class CourseFileRepository extends CourseRepository implements FileRepository<Course> {
 
+    private static final String PATHNAME = "courses.json";
+
     public CourseFileRepository() {
         super();
         readFromFile();
     }
 
-    /**
-     * @return all entities
-     */
-    @Override
-    public List<Course> getAll() {
-        return super.getAll();
-    }
 
-    /**
-     * searches for the index of the entity in the list
-     * {@inheritDoc}
-     *
-     * @param entity
-     */
-    @Override
-    public int findIndex(Course entity) {
-        return super.findIndex(entity);
-    }
 
     /**
      * deletes the course with the given name from the list, as well from the teacher's list of courses
@@ -101,7 +86,7 @@ public class CourseFileRepository extends CourseRepository implements FileReposi
      */
     @Override
     public void readFromFile() {
-        File file = new File("courses.json");
+        File file = new File(PATHNAME);
 
         if(!file.exists()) {
             Teacher teacher = new Teacher("Ana", "Pop", 1);
@@ -122,7 +107,7 @@ public class CourseFileRepository extends CourseRepository implements FileReposi
             ObjectMapper mapper = new ObjectMapper();
 
             try {
-                List<Course> courses = new ArrayList<>(Arrays.asList(mapper.readValue(new File("courses.json"), Course[].class)));
+                List<Course> courses = new ArrayList<>(Arrays.asList(mapper.readValue(new File(PATHNAME), Course[].class)));
                 repoList.addAll(courses);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -141,7 +126,7 @@ public class CourseFileRepository extends CourseRepository implements FileReposi
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
 
         try {
-            writer.writeValue(new File("courses.json"), getAll());
+            writer.writeValue(new File(PATHNAME), getAll());
         } catch (IOException e) {
             e.printStackTrace();
         }
