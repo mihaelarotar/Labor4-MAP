@@ -24,6 +24,16 @@ public class CourseController extends Controller<Course> {
     }
 
     /**
+     * returns the course with the given name
+     * @param name string, representing the title of the course to be returned
+     * @return the course with the given name
+     */
+    public Course findByName(String name) {
+        CourseRepository courseRepository = (CourseRepository) repository;
+        return courseRepository.findByName(name);
+    }
+
+    /**
      * filters courses by the number of credits
      * @param credits the number of credits of the courses to be shown
      * @return the courses with the number of credits equal to the parameter

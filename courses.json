@@ -1,44 +1,24 @@
 [ {
   "name" : "DB",
-  "teacher" : {
-    "firstName" : "Ana",
-    "lastName" : "Pop",
-    "teacherID" : 1,
-    "courses" : [ ]
-  },
+  "teacherID" : 1,
   "maxEnrollment" : 80,
   "studentsEnrolled" : [ ],
   "credits" : 4
 }, {
   "name" : "OOP",
-  "teacher" : {
-    "firstName" : "Jane",
-    "lastName" : "Smith",
-    "teacherID" : 2,
-    "courses" : [ ]
-  },
+  "teacherID" : 2,
   "maxEnrollment" : 100,
   "studentsEnrolled" : [ ],
   "credits" : 6
 }, {
   "name" : "MAP",
-  "teacher" : {
-    "firstName" : "Jane",
-    "lastName" : "Smith",
-    "teacherID" : 2,
-    "courses" : [ ]
-  },
+  "teacherID" : 2,
   "maxEnrollment" : 50,
   "studentsEnrolled" : [ ],
   "credits" : 6
 }, {
   "name" : "Algebra",
-  "teacher" : {
-    "firstName" : "Ana",
-    "lastName" : "Pop",
-    "teacherID" : 1,
-    "courses" : [ ]
-  },
+  "teacherID" : 1,
   "maxEnrollment" : 60,
   "studentsEnrolled" : [ ],
   "credits" : 5

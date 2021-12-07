@@ -3,9 +3,10 @@ package uni.controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uni.entities.Course;
-import uni.entities.Teacher;
 import uni.repository.CourseRepository;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,12 +19,11 @@ class CourseControllerTest {
     void setup() {
         CourseRepository courseRepository = new CourseRepository();
         courseController = new CourseController(courseRepository);
-        Teacher teacher = new Teacher("Ana", "Pop", 1);
-        Teacher teacher1 = new Teacher("Jane", "Smith",2);
-        Course databases = new Course("DB", teacher, 80, 4);
-        Course oop = new Course("OOP", teacher1, 100, 6);
-        Course map = new Course("MAP", teacher1, 50, 6);
-        Course algebra = new Course("Algebra", teacher, 60,5);
+
+        Course databases = new Course("DB", 1, 80, 4);
+        Course oop = new Course("OOP", 2, 100, 6);
+        Course map = new Course("MAP", 2, 50, 6);
+        Course algebra = new Course("Algebra", 1, 60,5);
 
         courseController.add(databases);
         courseController.add(oop);
@@ -34,22 +34,21 @@ class CourseControllerTest {
     @Test
     void filterByCredits() {
         List<Course> filteredCourses = courseController.filterByCredits(6);
-        assertEquals(filteredCourses.size(), 2);
-        assertEquals(filteredCourses.get(0).getName(), "OOP");
-        assertEquals(filteredCourses.get(1).getName(), "MAP");
+        assertEquals(filteredCourses, new ArrayList<>(Arrays.asList(courseController.findByName("OOP"), courseController.findByName("MAP"))));
 
     }
 
     @Test
     void sortByName() {
         courseController.sortByName();
-        assertEquals(courseController.getAll().get(0).getName(), "Algebra");
+        assertEquals(courseController.getAll(), new ArrayList<>(Arrays.asList(courseController.findByName("Algebra"), courseController.findByName("DB"),
+                courseController.findByName("MAP"), courseController.findByName("OOP"))));
     }
 
     @Test
     void sortByCredits() {
         courseController.sortByCredits();
-        assertEquals(courseController.getAll().get(0).getName(), "DB");
-        assertEquals(courseController.getAll().get(1).getName(), "Algebra");
+        assertEquals(courseController.getAll(), new ArrayList<>(Arrays.asList(courseController.findByName("DB"), courseController.findByName("Algebra"),
+                courseController.findByName("OOP"), courseController.findByName("MAP"))));
     }
 }

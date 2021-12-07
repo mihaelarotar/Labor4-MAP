@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import uni.entities.Course;
-import uni.entities.Teacher;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +19,6 @@ public class CourseFileRepository extends CourseRepository implements FileReposi
         super();
         readFromFile();
     }
-
 
 
     /**
@@ -89,12 +87,10 @@ public class CourseFileRepository extends CourseRepository implements FileReposi
         File file = new File(PATHNAME);
 
         if(!file.exists()) {
-            Teacher teacher = new Teacher("Ana", "Pop", 1);
-            Teacher teacher1 = new Teacher("Jane", "Smith",2);
-            Course databases = new Course("DB", teacher, 80, 4);
-            Course oop = new Course("OOP", teacher1, 100, 6);
-            Course map = new Course("MAP", teacher1, 50, 6);
-            Course algebra = new Course("Algebra", teacher, 60,5);
+            Course databases = new Course("DB", 1, 80, 4);
+            Course oop = new Course("OOP", 2, 100, 6);
+            Course map = new Course("MAP", 2, 50, 6);
+            Course algebra = new Course("Algebra", 1, 60,5);
 
             repoList.add(databases);
             repoList.add(oop);

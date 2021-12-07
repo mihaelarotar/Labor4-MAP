@@ -37,4 +37,16 @@ public class TeacherRepository extends InMemoryRepository<Teacher> {
             }
         return entity;
     }
-}
+
+    /**
+     * returns the teacher with the given ID
+     * @param teacherID int, representing the ID of the teacher to be returned
+     * @return the teacher with the given ID
+     */
+    public Teacher findByID(int teacherID) {
+        return repoList.stream()
+                .filter(teacher -> teacher.getTeacherID() == teacherID)
+                .findFirst()
+                .orElseThrow();
+    }
+ }

@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class Course {
     private String name;
-    private Teacher teacher;
+    private int teacherID;
     private int maxEnrollment;
     private List<Student> studentsEnrolled;
     private int credits;
@@ -16,8 +16,7 @@ public class Course {
     public Course() {
     }
 
-    // to do : inlocuit teacher cu teacher ID si actualizat in lista de teachers de fiecare data
-    public Course(String name, Teacher teacher, int maxEnrollment, int credits) {
+    public Course(String name, int teacherID, int maxEnrollment, int credits) {
         if (name.isEmpty()) {
             throw new InvalidDataException("Name cannot be null");
         }
@@ -25,7 +24,7 @@ public class Course {
             throw new InvalidDataException("Value cannot be negative");
         }
         this.name = name;
-        this.teacher = teacher;
+        this.teacherID = teacherID;
         this.maxEnrollment = maxEnrollment;
         this.studentsEnrolled = new ArrayList<>();
         this.credits = credits;
@@ -39,12 +38,12 @@ public class Course {
         this.name = name;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
+    public int getTeacherID() {
+        return teacherID;
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    public void setTeacherID(int teacherID) {
+        this.teacherID = teacherID;
     }
 
     public int getMaxEnrollment() {
@@ -81,14 +80,14 @@ public class Course {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, teacher, maxEnrollment, studentsEnrolled, credits);
+        return Objects.hash(name, teacherID, maxEnrollment, studentsEnrolled, credits);
     }
 
     @Override
     public String toString() {
         return "Course{" +
                 "name='" + name + '\'' +
-                ", teacher=" + teacher +
+                ", teacherID=" + teacherID +
                 ", maxEnrollment=" + maxEnrollment +
                 ", studentsEnrolled=" + studentsEnrolled +
                 ", credits=" + credits +

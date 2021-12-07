@@ -13,6 +13,7 @@ public class ConsoleMenu {
     private final RegistrationSystem control;
 
     public ConsoleMenu(RegistrationSystem control) {
+
         this.control = control;
     }
 
@@ -68,7 +69,7 @@ public class ConsoleMenu {
                     break;
                 case 3:
                     Course course = createCourse();
-                    control.getCourseController().add(course);
+                    control.addCourse(course);
                     break;
                 case 4:
                     myInput.nextLine();
@@ -86,7 +87,7 @@ public class ConsoleMenu {
                     myInput.nextLine();
                     System.out.println("Give name: ");
                     String name = myInput.nextLine();
-                    control.getCourseController().deleteByName(name);
+                    control.deleteCourse(name);
                     break;
                 case 7:
                     control.getStudentController().update(createStudent());
@@ -182,7 +183,7 @@ public class ConsoleMenu {
         int maxEnrollment = in.nextInt();
         System.out.println("Give number of credits: ");
         int credits = in.nextInt();
-        return new Course(name, teacher, maxEnrollment, credits);
+        return new Course(name, teacher.getTeacherID(), maxEnrollment, credits);
     }
 
     /**

@@ -10,7 +10,7 @@ import java.util.List;
 public abstract class InMemoryRepository<E> implements ICrudRepository<E>{
     protected List<E> repoList;
 
-    public InMemoryRepository() {
+    protected InMemoryRepository() {
         this.repoList = new ArrayList<>();
     }
 
@@ -21,7 +21,7 @@ public abstract class InMemoryRepository<E> implements ICrudRepository<E>{
     @Override
     public int findIndex(E entity) {
         for (E object : repoList) {
-            if (entity == object)
+            if (entity.equals(object))
                 return repoList.indexOf(object);
         }
         return -1;

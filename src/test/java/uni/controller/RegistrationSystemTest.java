@@ -18,31 +18,32 @@ import static org.junit.jupiter.api.Assertions.*;
 class RegistrationSystemTest {
     private CourseRepository courseRepository;
     private StudentRepository studentRepository;
+    private TeacherRepository teacherRepository;
     private RegistrationSystem registrationSystem;
 
     @BeforeEach
     void setup() {
         courseRepository = new CourseRepository();
         studentRepository = new StudentRepository();
-        TeacherRepository teacherRepository = new TeacherRepository();
+        teacherRepository = new TeacherRepository();
         StudentController studentController = new StudentController(studentRepository);
         TeacherController teacherController = new TeacherController(teacherRepository);
         CourseController courseController = new CourseController(courseRepository);
         registrationSystem = new RegistrationSystem(studentController, courseController, teacherController);
         Teacher teacher = new Teacher("Ana", "Pop", 1);
         Teacher teacher1 = new Teacher("John", "Smith", 2);
-        teacherRepository.save(teacher);
-        teacherRepository.save(teacher1);
+        teacherController.add(teacher);
+        teacherController.add(teacher1);
         Student student = new Student("Vlad", "Pop", 1);
         Student student1 = new Student("Maria", "Popa", 2);
         Student student2 = new Student("Jane", "Smith", 3);
-        studentRepository.save(student);
-        studentRepository.save(student1);
-        studentRepository.save(student2);
-        Course databases = new Course("DB", teacher,2,4);
-        Course oop = new Course("OOP", teacher1, 50, 5);
-        courseRepository.save(databases);
-        courseRepository.save(oop);
+        studentController.add(student);
+        studentController.add(student1);
+        studentController.add(student2);
+        Course databases = new Course("DB", 1,2,4);
+        Course oop = new Course("OOP", 2, 50, 5);
+        registrationSystem.addCourse(databases);
+        registrationSystem.addCourse(oop);
     }
 
     @Test
@@ -79,9 +80,9 @@ class RegistrationSystemTest {
     @Test
     @Description("check if an exception is thrown if the given course or student are not in the list")
     void registerNonExistingData() {
-        Teacher teacher = new Teacher("Ana", "Pop", 1);
-        Student student = new Student("Vlad", "Pop", 1);
-        Course databases = new Course("DB", teacher,2,4);
+
+        Student student = new Student("Vlad", "Pop", 1111);
+        Course databases = new Course("DB", 1,2,4);
         assertThrows(NonExistingDataException.class, () -> registrationSystem.register(databases, student));
     }
 
@@ -128,4 +129,21 @@ class RegistrationSystemTest {
         assertEquals(registrationSystem.getAllCourses(), courseRepository.getAll());
     }
 
+    @Test
+    @Description("checks if the deleted course was also removed from the teacher's list of courses")
+    void deleteCourseFromTeachersList() {
+        Course databases = courseRepository.getAll().get(0);
+        Teacher teacher = teacherRepository.getAll().get(0);
+        registrationSystem.deleteCourse("DB");
+        assertFalse(teacher.getCourses().contains(databases));
+    }
+
+
+    @Test
+    @Description("checks if the added course was also added to the teacher's list of courses")
+    void saveCourseInTeachersList() {
+        Course databases = courseRepository.getAll().get(0);
+        Teacher teacher = teacherRepository.getAll().get(0);
+        assertTrue(teacher.getCourses().contains(databases));
+    }
 }

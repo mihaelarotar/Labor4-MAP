@@ -2,6 +2,7 @@ package uni.controller;
 
 import uni.entities.Course;
 import uni.entities.Student;
+import uni.entities.Teacher;
 import uni.exceptions.ExceededValueException;
 import uni.exceptions.NonExistingDataException;
 
@@ -107,5 +108,36 @@ public class RegistrationSystem {
      */
     public List<Course> getAllCourses() {
         return courseController.getAll();
+    }
+
+    /**
+     * deletes the course with the given name from the list, as well from the teacher's list of courses
+     * and the students' lists of enrolled courses
+     * @param courseName string, representing the name of the course to be deleted
+     */
+    public void deleteCourse(String courseName) {
+        Course courseToBeDeleted = courseController.findByName(courseName);
+
+        Teacher teacherToBeUpdated = teacherController.getAll().stream()
+                .filter(teacher -> teacher.getTeacherID() == courseToBeDeleted.getTeacherID())
+                .findFirst()
+                .orElseThrow();
+
+        teacherToBeUpdated.deleteCourseFromCourses(courseToBeDeleted);
+        courseController.deleteByName(courseName);
+    }
+
+    /**
+     * adds a new course to the list of courses, as well to the teacher's list of courses
+     * @param course entity must be not null
+     */
+    public void addCourse(Course course) {
+        Teacher teacherToBeUpdated = teacherController.findByID(course.getTeacherID());
+
+        if(!teacherToBeUpdated.getCourses().contains(course)) {
+            teacherToBeUpdated.addCourseToCourses(course);
+        }
+
+        courseController.add(course);
     }
 }

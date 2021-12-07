@@ -17,4 +17,14 @@ public class TeacherController extends Controller<Teacher> {
         TeacherRepository teacherRepository = (TeacherRepository) repository;
         teacherRepository.deleteByID(teacherID);
     }
+
+    /**
+     * returns the teacher with the given ID
+     * @param teacherID int, representing the ID of the teacher to be returned
+     * @return the teacher with the given ID
+     */
+    public Teacher findByID(int teacherID) {
+        TeacherRepository teacherRepository = (TeacherRepository) repository;
+        return teacherRepository.findByID(teacherID);
+    }
 }
