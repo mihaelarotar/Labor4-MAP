@@ -16,16 +16,14 @@ import uni.repository.TeacherRepository;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RegistrationSystemTest {
-    private CourseRepository courseRepository;
-    private StudentRepository studentRepository;
-    private TeacherRepository teacherRepository;
+
     private RegistrationSystem registrationSystem;
 
     @BeforeEach
     void setup() {
-        courseRepository = new CourseRepository();
-        studentRepository = new StudentRepository();
-        teacherRepository = new TeacherRepository();
+        CourseRepository courseRepository = new CourseRepository();
+        StudentRepository studentRepository = new StudentRepository();
+        TeacherRepository teacherRepository = new TeacherRepository();
         StudentController studentController = new StudentController(studentRepository);
         TeacherController teacherController = new TeacherController(teacherRepository);
         CourseController courseController = new CourseController(courseRepository);
@@ -48,8 +46,8 @@ class RegistrationSystemTest {
 
     @Test
     void register() throws Exception {
-        Course databases = courseRepository.getAll().get(0);
-        Student student = studentRepository.getAll().get(0);
+        Course databases = registrationSystem.getCourseController().getAll().get(0);
+        Student student = registrationSystem.getStudentController().getAll().get(0);
 
         assertTrue(registrationSystem.register(databases, student));
     }
@@ -57,8 +55,8 @@ class RegistrationSystemTest {
     @Test
     @Description("checks if the function returns false when trying to register a student who is already registered")
     void registerAlreadyRegisteredStudent() throws Exception {
-        Course databases = courseRepository.getAll().get(0);
-        Student student = studentRepository.getAll().get(0);
+        Course databases = registrationSystem.getCourseController().getAll().get(0);
+        Student student = registrationSystem.getStudentController().getAll().get(0);
 
         registrationSystem.register(databases, student);
         assertFalse(registrationSystem.register(databases, student));
@@ -67,10 +65,10 @@ class RegistrationSystemTest {
     @Test
     @Description("checks if the function returns false when trying to register a student to a course with no more free places")
     void registerToACourseWithNoFreePlaces() throws Exception {
-        Course databases = courseRepository.getAll().get(0);
-        Student student = studentRepository.getAll().get(0);
-        Student student1 = studentRepository.getAll().get(1);
-        Student student2 = studentRepository.getAll().get(2);
+        Course databases = registrationSystem.getCourseController().getAll().get(0);
+        Student student = registrationSystem.getStudentController().getAll().get(0);
+        Student student1 = registrationSystem.getStudentController().getAll().get(1);
+        Student student2 = registrationSystem.getStudentController().getAll().get(2);
 
         registrationSystem.register(databases, student);
         registrationSystem.register(databases, student1);
@@ -89,18 +87,18 @@ class RegistrationSystemTest {
     @Test
     @Description("checks if an exception is thrown when the total number of credits for a students exceeds 30")
     void registerExceededValue() throws NonExistingDataException, ExceededValueException {
-        Course databases = courseRepository.getAll().get(0);
-        Student student = studentRepository.getAll().get(0);
+        Course databases = registrationSystem.getCourseController().getAll().get(0);
+        Student student = registrationSystem.getStudentController().getAll().get(0);
         student.setTotalCredits(27);
         assertFalse(registrationSystem.register(databases, student));
     }
 
     @Test
     void retrieveCoursesWithFreePlaces() throws Exception {
-        Course databases = courseRepository.getAll().get(0);
-        Course oop = courseRepository.getAll().get(1);
-        Student student = studentRepository.getAll().get(0);
-        Student student1 = studentRepository.getAll().get(1);
+        Course databases = registrationSystem.getCourseController().getAll().get(0);
+        Course oop = registrationSystem.getCourseController().getAll().get(1);
+        Student student = registrationSystem.getStudentController().getAll().get(0);
+        Student student1 = registrationSystem.getStudentController().getAll().get(1);
         registrationSystem.register(databases,student);
         registrationSystem.register(databases,student1);
 
@@ -110,10 +108,10 @@ class RegistrationSystemTest {
 
     @Test
     void retrieveStudentsEnrolledForACourse() throws Exception {
-        Course databases = courseRepository.getAll().get(0);
-        Course oop = courseRepository.getAll().get(1);
-        Student student = studentRepository.getAll().get(0);
-        Student student1 = studentRepository.getAll().get(1);
+        Course databases = registrationSystem.getCourseController().getAll().get(0);
+        Course oop = registrationSystem.getCourseController().getAll().get(1);
+        Student student = registrationSystem.getStudentController().getAll().get(0);
+        Student student1 = registrationSystem.getStudentController().getAll().get(1);
         registrationSystem.register(databases,student);
         registrationSystem.register(databases,student1);
 
@@ -126,14 +124,14 @@ class RegistrationSystemTest {
     @Test
     void getAllCourses() {
         assertEquals(registrationSystem.getAllCourses().size(), 2);
-        assertEquals(registrationSystem.getAllCourses(), courseRepository.getAll());
+        assertEquals(registrationSystem.getAllCourses(), registrationSystem.getCourseController().getAll());
     }
 
     @Test
     @Description("checks if the deleted course was also removed from the teacher's list of courses")
     void deleteCourseFromTeachersList() {
-        Course databases = courseRepository.getAll().get(0);
-        Teacher teacher = teacherRepository.getAll().get(0);
+        Course databases = registrationSystem.getCourseController().getAll().get(0);
+        Teacher teacher = registrationSystem.getTeacherController().getAll().get(0);
         registrationSystem.deleteCourse("DB");
         assertFalse(teacher.getCourses().contains(databases));
     }
@@ -142,8 +140,8 @@ class RegistrationSystemTest {
     @Test
     @Description("checks if the added course was also added to the teacher's list of courses")
     void saveCourseInTeachersList() {
-        Course databases = courseRepository.getAll().get(0);
-        Teacher teacher = teacherRepository.getAll().get(0);
+        Course databases = registrationSystem.getCourseController().getAll().get(0);
+        Teacher teacher = registrationSystem.getTeacherController().getAll().get(0);
         assertTrue(teacher.getCourses().contains(databases));
     }
 }
