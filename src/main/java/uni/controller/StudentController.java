@@ -1,14 +1,13 @@
 package uni.controller;
 
 import uni.entities.Student;
-import uni.repository.InMemoryRepository;
 import uni.repository.StudentRepository;
 
 import java.util.Comparator;
 import java.util.List;
 
 public class StudentController extends Controller<Student> {
-    public StudentController(InMemoryRepository<Student> repository) {
+    public StudentController(StudentRepository repository) {
         super(repository);
     }
 
