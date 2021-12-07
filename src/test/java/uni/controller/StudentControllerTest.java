@@ -6,6 +6,8 @@ import uni.entities.Student;
 import uni.exceptions.ExceededValueException;
 import uni.repository.StudentRepository;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,19 +46,22 @@ class StudentControllerTest {
     @Test
     void filterByTotalCredits() {
         List<Student> filteredStudents = studentController.filterByTotalCredits(25);
-        assertEquals(filteredStudents.size(), 2);
-        assertEquals(filteredStudents.get(0).getStudentID(), 101);
+        assertEquals(filteredStudents, new ArrayList<>(Arrays.asList(studentController.findByID(101), studentController.findByID(102))));
     }
 
     @Test
     void sortByName() {
         studentController.sortByName();
-        assertEquals(studentController.getAll().get(0).getStudentID(), 104);
+        assertEquals(studentController.getAll(), new ArrayList<>(Arrays.asList(studentController.findByID(104),
+                studentController.findByID(105), studentController.findByID(100),
+                studentController.findByID(102), studentController.findByID(101))));
     }
 
     @Test
     void sortByCreditsDescending() {
         studentController.sortByCreditsDescending();
-        assertEquals(studentController.getAll().get(0).getStudentID(), 100);
+        assertEquals(studentController.getAll(), new ArrayList<>(Arrays.asList(studentController.findByID(100),
+                studentController.findByID(101), studentController.findByID(102),
+                studentController.findByID(105), studentController.findByID(104))));
     }
 }

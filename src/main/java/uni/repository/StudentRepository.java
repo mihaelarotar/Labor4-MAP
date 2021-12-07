@@ -44,4 +44,16 @@ public class StudentRepository extends InMemoryRepository<Student> {
             }
         return entity;
     }
+
+    /**
+     * returns the student with the given ID
+     * @param studentID long int, representing the ID of the student to be returned
+     * @return the student with the given ID
+     */
+    public Student findByID (long studentID) {
+        return repoList.stream()
+                .filter(student -> student.getStudentID() == studentID)
+                .findFirst()
+                .orElseThrow();
+    }
 }

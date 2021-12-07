@@ -22,6 +22,16 @@ public class StudentController extends Controller<Student> {
     }
 
     /**
+     * returns the student with the given ID
+     * @param studentID long int, representing the ID of the student to be returned
+     * @return the student with the given ID
+     */
+    public Student findByID(long studentID) {
+        StudentRepository studentRepository = (StudentRepository) repository;
+        return studentRepository.findByID(studentID);
+    }
+
+    /**
      * filters students by the number of total credits
      * @param totalCredits the number of total credits of the students to be shown
      * @return the students with the number of total credits equal to the parameter
