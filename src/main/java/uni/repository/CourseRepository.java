@@ -69,7 +69,7 @@ public class CourseRepository extends InMemoryRepository<Course> {
         return repoList.stream()
                 .filter(course -> course.getName().equals(courseName))
                 .findFirst()
-                .orElseThrow();
+                .orElse(null);
     }
 
 }

@@ -99,8 +99,14 @@ public class ConsoleMenu {
                     control.getCourseController().update(createCourse());
                     break;
                 case 10:
+                    myInput.nextLine();
+                    System.out.println("Give course name: ");
+                    String courseName = myInput.nextLine();
+                    myInput.nextLine();
+                    System.out.println("Give student ID: ");
+                    int studentID = myInput.nextInt();
                     try {
-                        control.register(createCourse(), createStudent());
+                        control.register(courseName, studentID);
                     } catch (NonExistingDataException exception) {
                         System.out.println(exception.getMessage());
                     }
@@ -178,12 +184,13 @@ public class ConsoleMenu {
         Scanner in = new Scanner(System.in);
         System.out.println("Give course title: ");
         String name = in.nextLine();
-        Teacher teacher = createTeacher();
+        System.out.println("Give teacher ID: ");
+        int teacherID = in.nextInt();
         System.out.println("Give max number of enrolled students: ");
         int maxEnrollment = in.nextInt();
         System.out.println("Give number of credits: ");
         int credits = in.nextInt();
-        return new Course(name, teacher.getTeacherID(), maxEnrollment, credits);
+        return new Course(name, teacherID, maxEnrollment, credits);
     }
 
     /**

@@ -49,7 +49,7 @@ class RegistrationSystemTest {
         Course databases = registrationSystem.getCourseController().getAll().get(0);
         Student student = registrationSystem.getStudentController().getAll().get(0);
 
-        assertTrue(registrationSystem.register(databases, student));
+        assertTrue(registrationSystem.register(databases.getName(), student.getStudentID()));
     }
 
     @Test
@@ -58,8 +58,8 @@ class RegistrationSystemTest {
         Course databases = registrationSystem.getCourseController().getAll().get(0);
         Student student = registrationSystem.getStudentController().getAll().get(0);
 
-        registrationSystem.register(databases, student);
-        assertFalse(registrationSystem.register(databases, student));
+        registrationSystem.register(databases.getName(), student.getStudentID());
+        assertFalse(registrationSystem.register(databases.getName(), student.getStudentID()));
     }
 
     @Test
@@ -70,9 +70,9 @@ class RegistrationSystemTest {
         Student student1 = registrationSystem.getStudentController().getAll().get(1);
         Student student2 = registrationSystem.getStudentController().getAll().get(2);
 
-        registrationSystem.register(databases, student);
-        registrationSystem.register(databases, student1);
-        assertFalse(registrationSystem.register(databases, student2));
+        registrationSystem.register(databases.getName(), student.getStudentID());
+        registrationSystem.register(databases.getName(), student1.getStudentID());
+        assertFalse(registrationSystem.register(databases.getName(), student2.getStudentID()));
     }
 
     @Test
@@ -81,7 +81,7 @@ class RegistrationSystemTest {
 
         Student student = new Student("Vlad", "Pop", 1111);
         Course databases = new Course("DB", 1,2,4);
-        assertThrows(NonExistingDataException.class, () -> registrationSystem.register(databases, student));
+        assertThrows(NonExistingDataException.class, () -> registrationSystem.register(databases.getName(), student.getStudentID()));
     }
 
     @Test
@@ -90,7 +90,7 @@ class RegistrationSystemTest {
         Course databases = registrationSystem.getCourseController().getAll().get(0);
         Student student = registrationSystem.getStudentController().getAll().get(0);
         student.setTotalCredits(27);
-        assertFalse(registrationSystem.register(databases, student));
+        assertFalse(registrationSystem.register(databases.getName(), student.getStudentID()));
     }
 
     @Test
@@ -99,8 +99,8 @@ class RegistrationSystemTest {
         Course oop = registrationSystem.getCourseController().getAll().get(1);
         Student student = registrationSystem.getStudentController().getAll().get(0);
         Student student1 = registrationSystem.getStudentController().getAll().get(1);
-        registrationSystem.register(databases,student);
-        registrationSystem.register(databases,student1);
+        registrationSystem.register(databases.getName(),student.getStudentID());
+        registrationSystem.register(databases.getName(),student1.getStudentID());
 
         assertEquals(registrationSystem.retrieveCoursesWithFreePlaces().size(),1);
         assertEquals(registrationSystem.retrieveCoursesWithFreePlaces().get(0), oop);
@@ -112,8 +112,8 @@ class RegistrationSystemTest {
         Course oop = registrationSystem.getCourseController().getAll().get(1);
         Student student = registrationSystem.getStudentController().getAll().get(0);
         Student student1 = registrationSystem.getStudentController().getAll().get(1);
-        registrationSystem.register(databases,student);
-        registrationSystem.register(databases,student1);
+        registrationSystem.register(databases.getName(),student.getStudentID());
+        registrationSystem.register(databases.getName(),student1.getStudentID());
 
         assertEquals(registrationSystem.retrieveStudentsEnrolledForACourse(databases).size(),2);
         assertEquals(registrationSystem.retrieveStudentsEnrolledForACourse(oop).size(),0);

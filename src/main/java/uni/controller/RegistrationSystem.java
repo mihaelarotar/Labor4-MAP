@@ -36,37 +36,37 @@ public class RegistrationSystem {
 
     /**
      * registers a student to a given course
-     * @param course the course to be enrolled in
-     * @param student the student to be enrolled
+     * @param courseName the course to be enrolled in
+     * @param studentID the student to be enrolled
      * @return true if the registration was completed successfully
      * or false if the student is already registered to this course
      * or if there are no more available places for this course
      * @throws NonExistingDataException if the given course or student are not in the list
      */
-    public boolean register(Course course, Student student) throws NonExistingDataException{
-        int courseIndex = courseController.findIndex(course);
-        int studentIndex = studentController.findIndex(student);
-        if (courseIndex == -1) {
+    public boolean register(String courseName, long studentID) throws NonExistingDataException{
+        Course course = courseController.findByName(courseName);
+        Student student = studentController.findByID(studentID);
+
+        if (course == null) {
             throw new NonExistingDataException("There is no such course in the list");
         }
-        if (studentIndex == -1) {
+        if (student == null) {
             throw new NonExistingDataException("There is no such student in the list");
         }
-        Course foundCourse = courseController.getAll().get(courseIndex);
-        Student foundStudent = studentController.getAll().get(studentIndex);
-        if (foundCourse.getStudentsEnrolled().size() >= foundCourse.getMaxEnrollment()) {
+
+        if (course.getStudentsEnrolled().size() >= course.getMaxEnrollment()) {
             System.out.println("There are no more available places for this course");
             return false;
         }
 
-        if (foundCourse.getStudentsEnrolled().contains(student) || foundStudent.getEnrolledCourses().contains(course)) {
+        if (course.getStudentsEnrolled().contains(student) || student.getEnrolledCourses().contains(course)) {
             return false;
         }
 
 
         try {
-            foundStudent.addCourseToEnrolledCourses(course);
-            foundCourse.addStudentToStudentsEnrolled(student);
+            student.addCourseToEnrolledCourses(course);
+            course.addStudentToStudentsEnrolled(student);
         } catch (ExceededValueException exception) {
             System.out.println(exception.getMessage());
             return false;

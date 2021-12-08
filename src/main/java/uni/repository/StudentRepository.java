@@ -2,6 +2,7 @@ package uni.repository;
 
 import uni.entities.Student;
 import uni.exceptions.ExceededValueException;
+import uni.exceptions.NonExistingDataException;
 
 
 public class StudentRepository extends InMemoryRepository<Student> {
@@ -54,6 +55,6 @@ public class StudentRepository extends InMemoryRepository<Student> {
         return repoList.stream()
                 .filter(student -> student.getStudentID() == studentID)
                 .findFirst()
-                .orElseThrow();
+                .orElse(null);
     }
 }
